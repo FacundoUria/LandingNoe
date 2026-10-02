@@ -1,6 +1,6 @@
 import { HERO_IMAGE } from '../config.js'
 
-const BULLETS = ['Ganancias 100%', 'Manejá tus tiempos']
+const BULLETS = ['Importantes ganancias', 'Manejá tus tiempos']
 
 // Muestra la foto de config (HERO_IMAGE) o, si todavía no hay, un fondo decorativo.
 function HeroVisual() {
@@ -9,7 +9,7 @@ function HeroVisual() {
       {HERO_IMAGE ? (
         <>
           <img
-            alt="Emprendedora Arbell exitosa"
+            alt="Emprendedora de Distribuidora Bellissima"
             className="w-full h-full object-cover object-right"
             src={HERO_IMAGE}
           />
@@ -34,9 +34,6 @@ function HeroVisual() {
           </svg>
         </div>
       )}
-      <div className="absolute bottom-2.5 left-3 lg:bottom-4 lg:left-4 bg-white/90 backdrop-blur-md py-1 px-2.5 rounded-lg">
-        <p className="text-[11px] lg:text-xs font-bold text-arbell-dark">¡Más de 15.000 líderes activas!</p>
-      </div>
     </div>
   )
 }
@@ -69,7 +66,7 @@ export default function Hero({ children }) {
               Convertí tu tiempo en ingresos.
             </h1>
             <p className="text-sm lg:text-lg font-normal text-sky-100 leading-relaxed max-w-sm lg:max-w-lg mb-4 lg:mb-6 animate-fade-up [animation-delay:120ms]">
-              Emprendé con arbell y empezá a crecer con confianza. Formá parte de la red de cosmética líder en bienestar.
+              Emprendé con Arbell de la mano de Distribuidora Bellissima y empezá a crecer con confianza.
             </p>
 
             <div className="flex items-center gap-4 lg:gap-6 text-xs lg:text-sm font-medium text-white/90 mb-5 lg:mb-8">

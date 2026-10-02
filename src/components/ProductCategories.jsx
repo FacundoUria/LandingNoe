@@ -1,13 +1,4 @@
-import { STORE_URL } from '../config.js'
-
-const CATEGORIES = [
-  { emoji: '🌿', label: 'Cuidado Facial' },
-  { emoji: '🧴', label: 'Cuidado Corporal' },
-  { emoji: '✨', label: 'Fragancias' },
-  { emoji: '💄', label: 'Maquillaje' },
-  { emoji: '🌱', label: 'Suplementos & Té' },
-  { emoji: '💍', label: 'Joyería & Bijou' },
-]
+import { PRODUCT_LINES, STORE_URL } from '../config.js'
 
 export default function ProductCategories() {
   return (
@@ -39,9 +30,9 @@ export default function ProductCategories() {
 
       {/* El padding con margen negativo deja lugar para la elevación y el foco sin que el scroll los recorte */}
       <div className="flex gap-2.5 overflow-x-auto custom-scroll -mx-1 px-1 pt-1 pb-3 text-xs md:grid md:grid-cols-3 md:gap-3 md:overflow-visible md:m-0 md:p-0 lg:gap-4 lg:text-sm">
-        {CATEGORIES.map(({ emoji, label }) => (
+        {PRODUCT_LINES.map(({ nombre, emoji, imagen, descripcion }) => (
           <a
-            key={label}
+            key={nombre}
             className="group shrink-0 flex flex-col items-center gap-2 px-4 py-3 rounded-2xl bg-white border border-slate-200/80 font-medium text-slate-800 whitespace-nowrap shadow-xs transition duration-200 hover:-translate-y-0.5 hover:border-arbell-blue/40 hover:shadow-lg hover:shadow-arbell-blue/10 active:scale-[0.98] md:flex-row md:gap-3 lg:px-5 lg:py-4"
             href={STORE_URL}
             rel="noopener noreferrer"
@@ -49,11 +40,18 @@ export default function ProductCategories() {
           >
             <span
               aria-hidden="true"
-              className="flex items-center justify-center w-11 h-11 lg:w-12 lg:h-12 rounded-full bg-arbell-light text-xl lg:text-2xl transition duration-200 group-hover:bg-arbell-blue/10 group-hover:scale-105"
+              className="shrink-0 flex items-center justify-center w-11 h-11 lg:w-12 lg:h-12 rounded-full overflow-hidden bg-arbell-light text-xl lg:text-2xl transition duration-200 group-hover:bg-arbell-blue/10 group-hover:scale-105"
             >
-              {emoji}
+              {imagen ? <img alt="" className="w-full h-full object-cover" src={imagen} /> : emoji}
             </span>
-            {label}
+            <span className="flex flex-col items-center text-center md:items-start md:text-left">
+              {nombre}
+              {descripcion && (
+                <span className="mt-0.5 max-w-40 md:max-w-none text-[11px] lg:text-xs font-normal text-slate-500 whitespace-normal">
+                  {descripcion}
+                </span>
+              )}
+            </span>
           </a>
         ))}
       </div>

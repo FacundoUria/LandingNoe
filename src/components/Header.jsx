@@ -24,13 +24,13 @@ export default function Header() {
         }`}
       >
         <a
-          aria-label="Arbell Inicio"
+          aria-label="Distribuidora Bellissima - Inicio"
           className="flex items-center gap-1.5 rounded-lg transition-opacity duration-200 hover:opacity-80"
           href="#"
         >
           <img
             src="/images/logo.jpg"
-            alt="Distribuidora Bellissima - Arbell"
+            alt="Distribuidora Bellissima"
             className="w-9 h-9 rounded-full object-cover border border-sky-200 shadow-xs"
           />
           <div className="flex flex-col text-left leading-none">
