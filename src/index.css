@@ -1,1 +1,92 @@
 @import "tailwindcss";
+
+@theme {
+  --color-arbell-blue: #0077c8;
+  --color-arbell-dark: #003366;
+  --color-arbell-navy: #0b2545;
+  --color-arbell-light: #e0f2fe;
+  --color-arbell-accent: #38bdf8;
+  --color-arbell-gold: #f59e0b;
+  --color-arbell-soft: #f8fafc;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  /* Entrada del hero: se escalona con [animation-delay:...] */
+  --animate-fade-up: fade-up 500ms ease-out backwards;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@layer base {
+  /* Foco visible para navegación con teclado */
+  :where(a, button):focus-visible {
+    outline: 2px solid var(--color-arbell-blue);
+    outline-offset: 2px;
+  }
+}
+
+/* Previene el auto-zoom de iOS Safari al enfocar un campo (solo pantallas chicas) */
+@media (width < 48rem) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Sin animaciones ni transiciones para quien pidió movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Contenedor de página: angosto en mobile, más ancho en tablet y desktop */
+@utility page-container {
+  @apply mx-auto max-w-md px-4 md:max-w-2xl lg:max-w-6xl lg:px-8;
+}
+
+/* Subrayado que crece de izquierda a derecha al hacer hover (propio o del .group padre) */
+@utility link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  padding-bottom: 2px;
+  transition: background-size 200ms ease-out, color 200ms ease-out;
+
+  @media (hover: hover) {
+    &:hover,
+    .group:hover & {
+      background-size: 100% 1px;
+    }
+  }
+}
+
+@utility custom-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
