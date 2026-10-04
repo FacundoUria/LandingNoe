@@ -4,12 +4,6 @@ import Doodle from './Doodle.jsx'
 import HandUnderline from './HandUnderline.jsx'
 import TeamFaces from './TeamFaces.jsx'
 
-// Íconos de línea de los ítems (la clave se elige en content.js, campo "icono")
-const ICONOS = {
-  ganancia: 'M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941',
-  reloj: 'M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z',
-}
-
 // Color de la pared azul de la foto: rellena el arco por encima de la imagen sin que se note el borde
 const PHOTO_WALL = '#014e88'
 
@@ -118,35 +112,35 @@ export default function Hero() {
             <span>{HERO.badge}</span>
           </div>
 
-          <h1 className="text-[1.9rem] sm:text-4xl lg:text-6xl leading-[1.05] font-extrabold tracking-tight mb-4 lg:mb-6 max-w-[19ch] lg:max-w-xl [text-shadow:0_2px_12px_rgb(0_40_90/0.35)] animate-fade-up [animation-delay:80ms]">
+          <h1 className="text-[1.9rem] sm:text-4xl lg:text-6xl leading-[1.02] font-black tracking-tight text-balance mb-5 lg:mb-7 lg:max-w-xl [text-shadow:0_2px_12px_rgb(0_40_90/0.35)] animate-fade-up [animation-delay:80ms]">
             <HandUnderline text={HERO.titulo} delay={650} />
           </h1>
 
-          <p className="max-w-[34ch] text-sm sm:text-base lg:text-lg text-sky-100/90 leading-relaxed animate-fade-up [animation-delay:160ms]">
-            {HERO.texto}
-          </p>
+          {/* Nota firmada: tarjeta con cinta adhesiva, el texto y la firma a mano.
+              Cae a su lugar después del título; en hover (desktop) se endereza un poco. */}
+          <figure className="relative max-w-[440px] rounded-2xl bg-white p-[18px] text-slate-700 shadow-[0_18px_40px_-20px_rgb(0_0_0/0.5)] -rotate-[0.8deg] lg:-rotate-[1.2deg] lg:hover:-rotate-[0.5deg] transition-[rotate] duration-500 ease-soft animate-note-in [animation-delay:200ms]">
+            <span
+              aria-hidden="true"
+              className="absolute -top-2.5 left-1/2 -translate-x-1/2 rotate-3 w-[70px] h-5 rounded-[2px] bg-[#fcd34d]/85 shadow-sm"
+            />
+            <p className="text-sm sm:text-base leading-relaxed">{HERO.texto}</p>
+            <figcaption className="mt-3 flex items-center gap-2.5">
+              <TeamFaces size="w-8 h-8" />
+              <span className="font-hand text-2xl font-bold leading-none text-arbell-blue">{HERO.firma}</span>
+            </figcaption>
+          </figure>
 
-          <div className="mt-4 lg:mt-5 flex items-center gap-2.5 animate-fade-up [animation-delay:220ms]">
-            <TeamFaces size="w-8 h-8" />
-            <span className="text-xs lg:text-sm font-medium text-white/80">{HERO.firma}</span>
-          </div>
-
-          {/* Ítems como pastillas de vidrio */}
-          <ul className="mt-5 lg:mt-7 flex flex-wrap gap-2 lg:gap-3 animate-fade-up [animation-delay:280ms]">
-            {HERO.items.map(({ icono, texto }) => (
-              <li
-                key={texto}
-                className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-md px-3.5 py-2 text-xs sm:text-sm font-medium text-white whitespace-nowrap"
-              >
-                <svg className="w-4 h-4 lg:w-5 lg:h-5 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d={ICONOS[icono]} strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                {texto}
-              </li>
+          {/* Datos: dos columnas con línea fina arriba y separador, sin íconos ni cajas */}
+          <dl className="mt-7 lg:mt-9 grid grid-cols-2 max-w-[440px] border-t border-white/25 pt-4 animate-fade-up [animation-delay:280ms]">
+            {HERO.datos.map(({ titulo, texto }, index) => (
+              <div key={titulo} className={index === 0 ? 'pr-4 sm:pr-5' : 'pl-4 sm:pl-5 border-l border-white/25'}>
+                <dt className="text-base font-bold text-white">{titulo}</dt>
+                <dd className="mt-0.5 text-sm text-sky-100">{texto}</dd>
+              </div>
             ))}
-          </ul>
+          </dl>
 
-          {/* Mobile/tablet: el arco va entre las pastillas y el botón */}
+          {/* Mobile/tablet: el arco va entre los datos y el botón */}
           {HERO_IMAGE && (
             <div className="lg:hidden mt-12 mb-4">
               <HeroArch />

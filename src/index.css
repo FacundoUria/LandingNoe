@@ -28,6 +28,8 @@
   --animate-float-slower: float-slower 22s ease-in-out infinite;
   /* Flotación muy lenta del arco con la foto del hero */
   --animate-float-y: float-y 6s ease-in-out infinite;
+  /* Nota firmada del hero: fade + leve caída hasta su inclinación final */
+  --animate-note-in: note-in 700ms var(--ease-soft) backwards;
   /* Brillo que cruza el botón principal cada 4s */
   --animate-shine: shine 4s ease-in-out infinite;
   /* Trazos a mano (subrayados y doodles): se dibujan una vez; el retardo lo pasa cada uso */
@@ -94,6 +96,13 @@
     }
     50% {
       transform: translate(-24px, 18px) scale(1.06);
+    }
+  }
+
+  @keyframes note-in {
+    from {
+      opacity: 0;
+      transform: translateY(-8px) rotate(1deg);
     }
   }
 

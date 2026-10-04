@@ -13,11 +13,12 @@ export const HERO = {
   titulo: 'Multiplicá **tus ingresos** con Arbell Bellissima',
   texto:
     'Convertite en Asesora Independiente de la mano del equipo líder de Distribuidora Bellissima. Capacitación, soporte y un negocio a tu medida.',
-  firma: 'Lideradas por Mary y Noe',
-  // icono: ganancia o reloj (dibujos en Hero.jsx)
-  items: [
-    { icono: 'ganancia', texto: 'Importantes ganancias y premios' },
-    { icono: 'reloj', texto: 'Flexibilidad horaria total' },
+  // Firma de la nota, en letra manuscrita
+  firma: '— Mary y Noe ♡',
+  // Dos datos debajo de la nota
+  datos: [
+    { titulo: 'Ganancias y premios', texto: 'Crecen a medida que avanzás' },
+    { titulo: 'Tus horarios', texto: 'Flexibilidad total' },
   ],
   botonPrincipal: 'Quiero sumarme',
   imagenAlt: 'Mary y Noe, del equipo de Distribuidora Bellissima',
