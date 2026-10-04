@@ -17,8 +17,6 @@
   /* Entradas: se escalonan con [animation-delay:...] */
   --animate-fade-up: fade-up 600ms var(--ease-soft) backwards;
   --animate-photo-in: photo-in 1000ms var(--ease-soft) backwards;
-  /* Ícono de tarjeta al aparecer: 0.8 → 1.05 → 1 */
-  --animate-pop: pop 550ms var(--ease-soft) backwards;
   /* Check verde de campo válido */
   --animate-check-in: check-in 300ms var(--ease-spring) backwards;
   /* Campo con error al intentar enviar */
@@ -30,12 +28,14 @@
   --animate-shine: shine 4s ease-in-out infinite;
   /* Trazos a mano (subrayados y doodles): se dibujan una vez; el retardo lo pasa cada uso */
   --animate-draw: draw 800ms var(--ease-soft) both;
+  /* Óvalo a mano de la pestaña activa (trazo en px de pantalla, ver WhyChooseUs) */
+  --animate-draw-oval: draw-oval 900ms var(--ease-soft) both;
+  /* Barra de progreso del autoplay de "¿Por qué elegir Bellissima?" */
+  --animate-progress: progress 6s linear forwards;
   /* Destellos: titilan muy lento después de dibujarse */
   --animate-twinkle: twinkle 5s ease-in-out infinite;
   /* "Saludo" del botón de WhatsApp cada 8s */
   --animate-wiggle: wiggle 8s ease-in-out infinite;
-  /* Giro de muestra de la primera tarjeta de "Lo que encontrás con nosotras" */
-  --animate-flip-peek: flip-peek 2400ms var(--ease-soft) 900ms;
 
   @keyframes fade-up {
     from {
@@ -48,20 +48,6 @@
     from {
       opacity: 0;
       transform: scale(1.08);
-    }
-  }
-
-  @keyframes pop {
-    0% {
-      opacity: 0;
-      transform: scale(0.8);
-    }
-    60% {
-      opacity: 1;
-      transform: scale(1.05);
-    }
-    100% {
-      transform: scale(1);
     }
   }
 
@@ -111,6 +97,24 @@
     }
   }
 
+  @keyframes draw-oval {
+    from {
+      stroke-dashoffset: 1500;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes progress {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
   @keyframes draw {
     from {
       stroke-dashoffset: 1;
@@ -139,17 +143,6 @@
     25%,
     100% {
       transform: translateX(450%) skewX(-20deg);
-    }
-  }
-
-  @keyframes flip-peek {
-    0%,
-    100% {
-      transform: rotateY(0);
-    }
-    30%,
-    65% {
-      transform: rotateY(180deg);
     }
   }
 
@@ -205,18 +198,6 @@ body {
   .reveal.is-visible {
     opacity: 1;
     transform: none;
-  }
-
-  /* Tarjetas que giran (FlipCard). Prefijos -webkit- para Safari/iOS: sin ellos se ven
-     las dos caras superpuestas. */
-  .flip-inner {
-    -webkit-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-  }
-
-  .flip-face {
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
   }
 }
 

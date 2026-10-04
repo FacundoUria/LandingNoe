@@ -53,38 +53,25 @@ export const FORMULARIO = {
 export const POR_QUE_ELEGIRNOS = {
   titulo: '¿Por qué elegir Bellissima?',
   bajada: 'Mucho más que una distribuidora.',
-  // Tarjetas que giran. icono: megafono, apreton, birrete o dialogo; color: azul, rosa, dorado o verde
-  // (dibujos y colores en FlipCard.jsx). gancho: frase corta del frente; texto: el dorso.
+  // Temas del selector: titulo (pestaña) y texto (panel azul)
   beneficios: [
     {
-      icono: 'megafono',
-      color: 'azul',
       titulo: 'Estrategias y materiales de venta listos para usar',
-      gancho: 'Contenido y recursos para publicar desde el día uno.',
       texto:
         'No te dejamos sola pensando qué publicar. Te brindamos recursos gráficos, ideas para redes sociales y estrategias probadas para que impulses tus ventas desde el primer día.',
     },
     {
-      icono: 'apreton',
-      color: 'rosa',
       titulo: 'Acompañamiento 1 a 1',
-      gancho: 'Atención personalizada, nunca sos un número.',
       texto:
         'En nuestro equipo no sos un número de cuenta. Contás con la atención directa y personalizada de nosotras. Evaluamos tu punto de partida, escuchamos tus objetivos y diseñamos un plan a tu medida.',
     },
     {
-      icono: 'birrete',
-      color: 'dorado',
       titulo: 'Capacitación comercial continua',
-      gancho: 'Ventas, atención al cliente y liderazgo.',
       texto:
         'Te formamos no solo en el conocimiento de las líneas de producto, sino en técnicas de venta, atención al cliente y desarrollo de liderazgo para que construyas una carrera sólida en Arbell.',
     },
     {
-      icono: 'dialogo',
-      color: 'verde',
       titulo: 'Asesoramiento técnico para compradores',
-      gancho: 'Te ayudamos a armar tu rutina ideal.',
       texto:
         'Si buscás productos para tu consumo, te brindamos una consultoría personalizada para responder todas tus dudas y armar la rutina perfecta para vos y tu familia.',
     },
