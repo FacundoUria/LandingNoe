@@ -51,44 +51,10 @@ export const FORMULARIO = {
 }
 
 export const POR_QUE_ELEGIRNOS = {
-  titulo: '¿Por qué elegir Distribuidora Bellissima?',
-  items: [
-    { emoji: '👩‍🏫', texto: 'Capacitación constante' },
-    { emoji: '🤝', texto: 'Apoyo de líderes' },
-    { emoji: '📲', texto: 'Catálogo digital actualizado' },
-  ],
-}
-
-export const QUIENES_SOMOS = {
-  etiqueta: 'Quiénes somos',
-  // Lo que va entre ** lleva el subrayado a mano
-  titulo: 'Conocé **Bellissima**: tu Distribuidora Oficial Arbell',
-  bajada: 'Pasión por la belleza, el bienestar integral y el crecimiento personal.',
-  imagenAlt: 'Noe y Mary, líderes de Distribuidora Bellissima',
-  // A la vista, al lado de la foto
-  resumen: 'Somos Mary y Noe. Acercamos los productos Arbell a cada hogar y acompañamos a quienes quieren emprender.',
-  datos: [
-    { emoji: '🏅', texto: 'Distribuidora Oficial Arbell' },
-    { emoji: '👭', texto: 'Lideradas por Mary y Noe' },
-    { emoji: '🤝', texto: 'Acompañamiento diario' },
-  ],
-  botonHistoria: 'Conocé nuestra historia',
-  botonHistoriaCerrar: 'Mostrar menos',
-  historiaTitulo: 'Nuestra historia',
-  // Se despliegan con el botón "Conocé nuestra historia". Lo que va entre **dobles asteriscos** se resalta en negrita.
-  parrafos: [
-    'En Bellissima creemos que **el cuidado personal y el éxito profesional van de la mano**. Como Distribuidora Oficial Arbell, nos dedicamos a acercar productos de belleza, salud y nutrición de máxima calidad a cada hogar, al mismo tiempo que abrimos puertas a personas que buscan transformar su realidad económica.',
-    'Liderado por Mary y Noe, nuestro equipo combina experiencia, calidez y un acompañamiento constante para guiar a cada persona en su camino: ya sea eligiendo el mejor tratamiento para su bienestar o **construyendo un negocio propio, rentable y sin límites**.',
-  ],
-  porQue: {
-    titulo: '¿Por qué Bellissima?',
-    firma: '— Mary y Noe',
-    texto:
-      'En Bellissima elegimos ir un paso más allá. No somos solo una distribuidora que entrega productos: somos tus socias estratégicas, tus mentoras y tu red de soporte diario.',
-  },
-  beneficiosTitulo: 'Lo que encontrás con nosotras',
+  titulo: '¿Por qué elegir Bellissima?',
+  bajada: 'Mucho más que una distribuidora.',
   // Tarjetas que giran. icono: megafono, apreton, birrete o dialogo; color: azul, rosa, dorado o verde
-  // (dibujos y colores en AboutUs.jsx). gancho: frase corta del frente; texto: el dorso.
+  // (dibujos y colores en FlipCard.jsx). gancho: frase corta del frente; texto: el dorso.
   beneficios: [
     {
       icono: 'megafono',
@@ -123,6 +89,35 @@ export const QUIENES_SOMOS = {
         'Si buscás productos para tu consumo, te brindamos una consultoría personalizada para responder todas tus dudas y armar la rutina perfecta para vos y tu familia.',
     },
   ],
+}
+
+export const QUIENES_SOMOS = {
+  etiqueta: 'Quiénes somos',
+  // Lo que va entre ** lleva el subrayado a mano
+  titulo: 'Conocé **Bellissima**: tu Distribuidora Oficial Arbell',
+  bajada: 'Pasión por la belleza, el bienestar integral y el crecimiento personal.',
+  imagenAlt: 'Noe y Mary, líderes de Distribuidora Bellissima',
+  // A la vista, al lado de la foto
+  resumen: 'Somos Mary y Noe. Acercamos los productos Arbell a cada hogar y acompañamos a quienes quieren emprender.',
+  datos: [
+    { emoji: '🏅', texto: 'Distribuidora Oficial Arbell' },
+    { emoji: '👭', texto: 'Lideradas por Mary y Noe' },
+    { emoji: '🤝', texto: 'Acompañamiento diario' },
+  ],
+  botonHistoria: 'Conocé nuestra historia',
+  botonHistoriaCerrar: 'Mostrar menos',
+  historiaTitulo: 'Nuestra historia',
+  // Se despliegan con el botón "Conocé nuestra historia". Lo que va entre **dobles asteriscos** se resalta en negrita.
+  parrafos: [
+    'En Bellissima creemos que **el cuidado personal y el éxito profesional van de la mano**. Como Distribuidora Oficial Arbell, nos dedicamos a acercar productos de belleza, salud y nutrición de máxima calidad a cada hogar, al mismo tiempo que abrimos puertas a personas que buscan transformar su realidad económica.',
+    'Liderado por Mary y Noe, nuestro equipo combina experiencia, calidez y un acompañamiento constante para guiar a cada persona en su camino: ya sea eligiendo el mejor tratamiento para su bienestar o **construyendo un negocio propio, rentable y sin límites**.',
+  ],
+  porQue: {
+    titulo: '¿Por qué Bellissima?',
+    firma: '— Mary y Noe',
+    texto:
+      'En Bellissima elegimos ir un paso más allá. No somos solo una distribuidora que entrega productos: somos tus socias estratégicas, tus mentoras y tu red de soporte diario.',
+  },
   cta: {
     titulo: '¿Querés emprender con nosotras?',
     bajada: 'Te acompañamos desde el primer día. Vos ponés las ganas, nosotras el resto.',
