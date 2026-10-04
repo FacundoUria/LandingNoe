@@ -134,59 +134,83 @@ export const QUIENES_SOMOS = {
 export const PREGUNTAS_FRECUENTES = {
   etiqueta: 'Preguntas frecuentes',
   titulo: 'Todo lo que querés saber antes de empezar',
-  bajada: 'Si te queda alguna duda, te respondemos personalmente.',
-  // icono: bolsa, ganancia, billetera, etiqueta, birrete, celular, reloj o mensaje (dibujos en Faq.jsx).
-  // Si la respuesta empieza con "No" o "Para nada", esa palabra se resalta.
+  // Por pregunta: icono (bolsa, ganancia, billetera, etiqueta, birrete, celular, reloj o mensaje;
+  // dibujos en Faq.jsx), corta y rapida (lo que se ve en la tarjeta) y pregunta/respuesta completas
+  // (lo que se ve en el detalle). Si la respuesta completa empieza con "No" o "Para nada", se resalta.
   preguntas: [
     {
       icono: 'bolsa',
+      corta: '¿Hay pedido mínimo?',
+      rapida: 'Sin mínimo',
       pregunta: '¿Tengo que hacer un pedido mínimo para vender?',
       respuesta:
         'No, en Arbell no tenés ningún tipo de pedido mínimo obligatorio. Podés encargar desde un solo producto hasta la cantidad que tus clientes te pidan, vendiendo a tu propio ritmo y sin presiones.',
     },
     {
       icono: 'ganancia',
+      corta: '¿Cuánto gano?',
+      rapida: '30% a 60%',
       pregunta: '¿Cuál es el porcentaje de ganancia?',
       respuesta:
         'Empezás como Experta con entre un 30% y un 60% de ganancia sobre tus ventas. Además, a medida que avanzás en la carrera comercial (como Líder de Grupo o Distribuidora), tus ganancias y beneficios aumentan.',
     },
     {
       icono: 'billetera',
+      corta: '¿Cuándo pago?',
+      rapida: 'Al retirar',
       pregunta: '¿Cómo y cuándo se pagan los pedidos?',
       respuesta:
         'Los pedidos no se abonan por adelantado: se pagan directamente al momento de retirarlos por la distribuidora. De esta forma gestionás tus entregas de manera cómoda y segura.',
     },
     {
       icono: 'etiqueta',
+      corta: '¿Cuesta sumarme?',
+      rapida: '$0',
       pregunta: '¿Tiene algún costo sumarme o inscribirme?',
       respuesta:
         'No, registrarte para recibir asesoramiento e iniciar tu emprendimiento es totalmente gratuito. Te acompañamos para que puedas empezar con inversión cero y sin riesgos.',
     },
     {
       icono: 'birrete',
+      corta: '¿Necesito experiencia?',
+      rapida: 'No hace falta',
       pregunta: '¿Necesito tener experiencia previa en ventas?',
       respuesta:
         'Para nada. Te brindamos capacitación constante y el acompañamiento personalizado de nuestras líderes de equipo para que aprendas a tu ritmo y conozcas las mejores estrategias comerciales.',
     },
     {
       icono: 'celular',
+      corta: '¿Cómo muestro?',
+      rapida: 'Catálogo digital gratis',
       pregunta: '¿Cómo muestro los productos a mis clientes?',
       respuesta:
         'Contás con el catálogo digital y la tienda virtual gratis para compartir fácil y rápido por WhatsApp y redes sociales, además del catálogo impreso para vender de manera presencial.',
     },
     {
       icono: 'reloj',
+      corta: '¿Tengo horarios?',
+      rapida: 'Vos los elegís',
       pregunta: '¿Tengo horarios fijos o compromisos de tiempo?',
       respuesta:
         'No, contás con flexibilidad horaria total. Vos manejás tus propios tiempos desde el celular y decidís cuánto tiempo dedicarle a tu negocio.',
     },
     {
       icono: 'mensaje',
+      corta: '¿Y después?',
+      rapida: 'Te escribimos',
       pregunta: '¿Qué pasa después de completar el formulario?',
       respuesta:
         'Una vez que dejes tus datos, una de nuestras líderes de Distribuidora Bellissima te va a contactar por teléfono o WhatsApp para darte la bienvenida, resolver tus dudas y explicarte cómo hacer tu primer encargo.',
     },
   ],
+  verDetalle: 'Ver detalle',
+  // Detalle (modal en desktop, panel desde abajo en mobile)
+  detalle: {
+    anterior: 'Anterior',
+    siguiente: 'Siguiente',
+    cerrar: 'Cerrar',
+    boton: 'Quiero sumarme',
+  },
   contacto: {
     titulo: '¿No encontrás tu respuesta?',
     boton: 'Escribinos por WhatsApp',
