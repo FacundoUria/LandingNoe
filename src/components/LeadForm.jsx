@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import { SECTION_IDS, TEAM_FACES, whatsappUrl } from '../config.js'
+import { SECTION_IDS, whatsappUrl } from '../config.js'
 import { FORMULARIO } from '../content.js'
 import { WhatsAppIcon } from './icons.jsx'
+import TeamFaces from './TeamFaces.jsx'
 
 const INITIAL_FORM = {
   fullName: '',
@@ -82,21 +83,6 @@ function buildMessage(form) {
   if (notes) lines.push(`*Notas:* ${notes}`)
   lines.push('', '_Enviado desde el formulario de la página web._')
   return lines.join('\n')
-}
-
-function Faces({ size }) {
-  return (
-    <div className="flex -space-x-3 shrink-0">
-      {TEAM_FACES.map(({ src, nombre }) => (
-        <img
-          key={nombre}
-          src={src}
-          alt={nombre}
-          className={`${size} rounded-full object-cover ring-2 ring-white shadow-md`}
-        />
-      ))}
-    </div>
-  )
 }
 
 function CheckIcon() {
@@ -221,7 +207,7 @@ export default function LeadForm() {
 
           <div className="relative">
             <div className="flex items-center gap-3">
-              <Faces size="w-9 h-9 lg:w-12 lg:h-12" />
+              <TeamFaces size="w-9 h-9 lg:w-12 lg:h-12" />
               <p className="text-sm lg:text-base font-semibold">{FORMULARIO.equipo}</p>
             </div>
 

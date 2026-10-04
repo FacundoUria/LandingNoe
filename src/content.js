@@ -118,51 +118,65 @@ export const QUIENES_SOMOS = {
 }
 
 export const PREGUNTAS_FRECUENTES = {
-  titulo: 'Preguntas frecuentes',
+  etiqueta: 'Preguntas frecuentes',
+  titulo: 'Todo lo que querés saber antes de empezar',
+  bajada: 'Si te queda alguna duda, te respondemos personalmente.',
+  // icono: bolsa, ganancia, billetera, etiqueta, birrete, celular, reloj o mensaje (dibujos en Faq.jsx).
+  // Si la respuesta empieza con "No" o "Para nada", esa palabra se resalta.
   preguntas: [
     {
+      icono: 'bolsa',
       pregunta: '¿Tengo que hacer un pedido mínimo para vender?',
       respuesta:
         'No, en Arbell no tenés ningún tipo de pedido mínimo obligatorio. Podés encargar desde un solo producto hasta la cantidad que tus clientes te pidan, vendiendo a tu propio ritmo y sin presiones.',
     },
     {
+      icono: 'ganancia',
       pregunta: '¿Cuál es el porcentaje de ganancia?',
       respuesta:
         'Empezás como Experta con entre un 30% y un 60% de ganancia sobre tus ventas. Además, a medida que avanzás en la carrera comercial (como Líder de Grupo o Distribuidora), tus ganancias y beneficios aumentan.',
     },
     {
+      icono: 'billetera',
       pregunta: '¿Cómo y cuándo se pagan los pedidos?',
       respuesta:
         'Los pedidos no se abonan por adelantado: se pagan directamente al momento de retirarlos por la distribuidora. De esta forma gestionás tus entregas de manera cómoda y segura.',
     },
     {
+      icono: 'etiqueta',
       pregunta: '¿Tiene algún costo sumarme o inscribirme?',
       respuesta:
         'No, registrarte para recibir asesoramiento e iniciar tu emprendimiento es totalmente gratuito. Te acompañamos para que puedas empezar con inversión cero y sin riesgos.',
     },
     {
+      icono: 'birrete',
       pregunta: '¿Necesito tener experiencia previa en ventas?',
       respuesta:
         'Para nada. Te brindamos capacitación constante y el acompañamiento personalizado de nuestras líderes de equipo para que aprendas a tu ritmo y conozcas las mejores estrategias comerciales.',
     },
     {
+      icono: 'celular',
       pregunta: '¿Cómo muestro los productos a mis clientes?',
       respuesta:
         'Contás con el catálogo digital y la tienda virtual gratis para compartir fácil y rápido por WhatsApp y redes sociales, además del catálogo impreso para vender de manera presencial.',
     },
     {
+      icono: 'reloj',
       pregunta: '¿Tengo horarios fijos o compromisos de tiempo?',
       respuesta:
         'No, contás con flexibilidad horaria total. Vos manejás tus propios tiempos desde el celular y decidís cuánto tiempo dedicarle a tu negocio.',
     },
     {
+      icono: 'mensaje',
       pregunta: '¿Qué pasa después de completar el formulario?',
       respuesta:
         'Una vez que dejes tus datos, una de nuestras líderes de Distribuidora Bellissima te va a contactar por teléfono o WhatsApp para darte la bienvenida, resolver tus dudas y explicarte cómo hacer tu primer encargo.',
     },
   ],
-  dudaTitulo: '¿Te quedó alguna duda?',
-  dudaLink: 'Escribinos por WhatsApp',
+  contacto: {
+    titulo: '¿No encontrás tu respuesta?',
+    boton: 'Escribinos por WhatsApp',
+  },
 }
 
 export const COMO_EMPEZAR = {
