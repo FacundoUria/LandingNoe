@@ -1,10 +1,23 @@
 import { useRef, useState } from 'react'
-import { SECTION_IDS, TEAM_IMAGE } from '../config.js'
+import { SECTION_IDS, TEAM_AVATAR, TEAM_IMAGE } from '../config.js'
 import { QUIENES_SOMOS } from '../content.js'
 import { useReveal } from '../hooks/useReveal.js'
 import Reveal from './Reveal.jsx'
 
 const STAGGER_MS = 90
+
+// Convierte "texto **resaltado** texto" en nodos, con las partes entre ** en negrita
+function withHighlights(text) {
+  return text.split(/\*\*(.+?)\*\*/).map((part, index) =>
+    index % 2 === 1 ? (
+      <strong key={index} className="font-semibold text-slate-900">
+        {part}
+      </strong>
+    ) : (
+      part
+    ),
+  )
+}
 
 // Foto con un marco de color desplazado detrás que se acomoda al aparecer
 function TeamPhoto() {
@@ -146,20 +159,21 @@ export default function AboutUs() {
             {QUIENES_SOMOS.resumen}
           </Reveal>
 
-          {/* Datos destacados: informativos, sin hover. 2+1 en mobile, en fila desde sm */}
-          <ul ref={datosRef} className="mt-5 lg:mt-7 grid grid-cols-2 sm:grid-cols-3 gap-2.5 lg:gap-3">
+          {/* Datos destacados: informativos, sin hover. En mobile uno por fila (ícono al costado);
+              desde sm, tres columnas iguales con el ícono arriba y el texto que hace wrap. */}
+          <ul ref={datosRef} className="mt-5 lg:mt-7 grid gap-2.5 sm:grid-cols-3 lg:gap-3">
             {QUIENES_SOMOS.datos.map(({ emoji, texto }, index) => (
               <li
                 key={texto}
-                className={`reveal ${datosVisible ? 'is-visible' : ''} flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-3 py-2.5 shadow-xs ${
-                  index === QUIENES_SOMOS.datos.length - 1 ? 'col-span-2 sm:col-span-1' : ''
-                }`}
+                className={`reveal ${datosVisible ? 'is-visible' : ''} min-w-0 flex items-center gap-3 sm:flex-col sm:justify-center sm:gap-2 sm:text-center rounded-2xl border border-slate-200/80 bg-white px-3 py-2.5 sm:py-3.5 shadow-xs`}
                 style={{ '--reveal-delay': `${200 + index * STAGGER_MS}ms` }}
               >
                 <span aria-hidden="true" className="shrink-0 flex items-center justify-center w-9 h-9 rounded-full bg-arbell-light text-lg">
                   {emoji}
                 </span>
-                <span className="text-xs lg:text-sm font-semibold text-slate-700 leading-snug">{texto}</span>
+                <span className="min-w-0 text-sm sm:text-xs lg:text-sm font-semibold text-slate-700 leading-snug wrap-break-word hyphens-auto">
+                  {texto}
+                </span>
               </li>
             ))}
           </ul>
@@ -201,20 +215,69 @@ export default function AboutUs() {
         }`}
       >
         <div className="overflow-hidden">
-          <div
-            className={`mt-8 lg:mt-12 grid gap-6 lg:grid-cols-2 lg:gap-12 rounded-3xl border border-slate-200/80 bg-white p-6 lg:p-10 shadow-xs text-sm lg:text-base text-slate-600 leading-relaxed transition duration-500 ease-soft ${
-              historiaOpen ? 'opacity-100 translate-y-0 delay-100' : 'opacity-0 -translate-y-2'
-            }`}
-          >
-            <div className="space-y-4">
-              {QUIENES_SOMOS.parrafos.map((parrafo) => (
-                <p key={parrafo}>{parrafo}</p>
-              ))}
+          {/* Una columna en mobile (historia y después la tarjeta); dos en desktop, con la misma
+              altura. El padding deja ver la sombra de la tarjeta dentro del overflow-hidden. */}
+          <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 px-1 pt-8 pb-3 lg:pt-12">
+            {/* Nuestra historia: entra desde la izquierda */}
+            <div
+              className={`flex flex-col justify-center transition duration-500 ease-soft ${
+                historiaOpen ? 'opacity-100 translate-x-0 delay-150' : 'opacity-0 -translate-x-6'
+              }`}
+            >
+              <h3 className="text-xs lg:text-sm font-bold uppercase tracking-wider text-arbell-blue">
+                {QUIENES_SOMOS.historiaTitulo}
+              </h3>
+              <div className="relative mt-4 pl-5 lg:pl-6 space-y-4">
+                <span
+                  aria-hidden="true"
+                  className="absolute left-0 top-1 bottom-1 w-1 rounded-full bg-linear-to-b from-arbell-blue to-arbell-accent"
+                />
+                {QUIENES_SOMOS.parrafos.map((parrafo, index) => (
+                  <p
+                    key={parrafo}
+                    className={
+                      index === 0
+                        ? 'text-base lg:text-lg text-slate-700 leading-relaxed'
+                        : 'text-sm lg:text-base text-slate-600 leading-relaxed'
+                    }
+                  >
+                    {withHighlights(parrafo)}
+                  </p>
+                ))}
+              </div>
             </div>
-            <div className="lg:border-l lg:border-slate-100 lg:pl-12">
-              <h3 className="text-lg lg:text-xl font-bold text-slate-900">{porQue.titulo}</h3>
-              <p className="mt-2">{porQue.texto}</p>
-            </div>
+
+            {/* ¿Por qué Bellissima?: tarjeta destacada que entra desde la derecha */}
+            <figure
+              className={`relative overflow-hidden flex flex-col justify-center rounded-3xl bg-linear-to-br from-arbell-dark to-arbell-blue p-7 lg:p-10 text-white shadow-lg shadow-arbell-dark/20 transition duration-500 ease-soft ${
+                historiaOpen ? 'opacity-100 translate-x-0 delay-300' : 'opacity-0 translate-x-6'
+              }`}
+            >
+              <div aria-hidden="true" className="pointer-events-none">
+                <div className="absolute -right-12 -top-12 w-48 h-48 rounded-full bg-white/10 blur-2xl" />
+                <div className="absolute -left-10 -bottom-12 w-40 h-40 rounded-full bg-arbell-accent/20 blur-2xl" />
+              </div>
+              <div className="relative">
+                <span aria-hidden="true" className="block font-serif text-7xl lg:text-8xl leading-none text-arbell-accent/60 -mb-4 lg:-mb-6">
+                  “
+                </span>
+                <h3 className="text-xs lg:text-sm font-bold uppercase tracking-wider text-sky-200">{porQue.titulo}</h3>
+                <blockquote className="mt-3 text-lg lg:text-xl font-semibold leading-relaxed">
+                  <p>{porQue.texto}</p>
+                </blockquote>
+                <figcaption className="mt-6 flex items-center gap-3">
+                  {TEAM_AVATAR && (
+                    <img
+                      src={TEAM_AVATAR}
+                      alt=""
+                      loading="lazy"
+                      className="w-12 h-12 rounded-full object-cover ring-2 ring-white/50 shadow-md"
+                    />
+                  )}
+                  <span className="text-sm lg:text-base font-semibold text-sky-100">{porQue.firma}</span>
+                </figcaption>
+              </div>
+            </figure>
           </div>
         </div>
       </div>

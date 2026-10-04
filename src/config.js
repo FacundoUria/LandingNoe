@@ -49,6 +49,9 @@ export const HERO_IMAGE = '/images/equipo-hero.jpg'
 // Foto de la sección "Quiénes somos" (equipo.jpg sin el texto del flyer, con los nombres)
 export const TEAM_IMAGE = '/images/equipo-recorte.jpg'
 
+// Mini foto circular para la firma de "¿Por qué Bellissima?" (recorte cuadrado de las dos caras)
+export const TEAM_AVATAR = '/images/equipo-avatar.jpg'
+
 export function whatsappUrl(message = WHATSAPP.defaultMessage) {
   return `https://wa.me/${WHATSAPP.number}?text=${encodeURIComponent(message)}`
 }

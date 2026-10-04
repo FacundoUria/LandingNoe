@@ -60,13 +60,14 @@ export const QUIENES_SOMOS = {
   botonHistoria: 'Conocé nuestra historia',
   botonHistoriaCerrar: 'Mostrar menos',
   historiaTitulo: 'Nuestra historia',
-  // Se despliegan con el botón "Conocé nuestra historia"
+  // Se despliegan con el botón "Conocé nuestra historia". Lo que va entre **dobles asteriscos** se resalta en negrita.
   parrafos: [
-    'En Bellissima creemos que el cuidado personal y el éxito profesional van de la mano. Como Distribuidora Oficial Arbell, nos dedicamos a acercar productos de belleza, salud y nutrición de máxima calidad a cada hogar, al mismo tiempo que abrimos puertas a personas que buscan transformar su realidad económica.',
-    'Liderado por Mary y Noe, nuestro equipo combina experiencia, calidez y un acompañamiento constante para guiar a cada persona en su camino: ya sea eligiendo el mejor tratamiento para su bienestar o construyendo un negocio propio, rentable y sin límites.',
+    'En Bellissima creemos que **el cuidado personal y el éxito profesional van de la mano**. Como Distribuidora Oficial Arbell, nos dedicamos a acercar productos de belleza, salud y nutrición de máxima calidad a cada hogar, al mismo tiempo que abrimos puertas a personas que buscan transformar su realidad económica.',
+    'Liderado por Mary y Noe, nuestro equipo combina experiencia, calidez y un acompañamiento constante para guiar a cada persona en su camino: ya sea eligiendo el mejor tratamiento para su bienestar o **construyendo un negocio propio, rentable y sin límites**.',
   ],
   porQue: {
     titulo: '¿Por qué Bellissima?',
+    firma: '— Mary y Noe',
     texto:
       'En Bellissima elegimos ir un paso más allá. No somos solo una distribuidora que entrega productos: somos tus socias estratégicas, tus mentoras y tu red de soporte diario.',
   },
