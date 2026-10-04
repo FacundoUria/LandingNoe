@@ -65,11 +65,11 @@ export default function Faq() {
     <section
       id={SECTION_IDS.preguntasFrecuentes}
       aria-labelledby="faq-titulo"
-      className="relative isolate overflow-x-clip mt-14 lg:mt-24 py-16 lg:py-24 bg-linear-to-b from-sky-50 to-white scroll-mt-16"
+      className="relative isolate mt-6 lg:mt-10 py-20 lg:py-28 bg-[linear-gradient(to_bottom,var(--color-white)_0%,var(--color-sky-50)_22%,var(--color-sky-50)_78%,var(--color-white)_100%)] scroll-mt-16"
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -z-10 left-0 top-8 w-[26rem] h-[26rem] lg:w-[36rem] lg:h-[36rem] -translate-x-1/3 rounded-full bg-arbell-accent/10 blur-3xl"
+        className="pointer-events-none absolute -z-10 left-0 top-1/4 w-[22rem] h-[22rem] lg:w-[34rem] lg:h-[34rem] -translate-x-1/2 rounded-full bg-arbell-accent/[0.07] blur-3xl"
       />
 
       <div className="page-container lg:grid lg:grid-cols-[35fr_65fr] lg:gap-14 lg:items-start">

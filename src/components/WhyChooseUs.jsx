@@ -11,10 +11,10 @@ export default function WhyChooseUs() {
 
   return (
     <section aria-labelledby="por-que-titulo" className="relative overflow-hidden bg-white pt-12 pb-16 lg:pt-20 lg:pb-24">
-      {/* Patrón de puntos en la esquina, que se desvanece */}
+      {/* Patrón de puntos cerca de la esquina, que se desvanece hacia todos los bordes (sin corte arriba) */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-0 right-0 w-48 h-48 lg:w-80 lg:h-80 opacity-25 bg-[radial-gradient(circle,var(--color-arbell-blue)_1.5px,transparent_2px)] bg-size-[16px_16px] [mask-image:radial-gradient(circle_at_100%_0%,#000,transparent_70%)]"
+        className="pointer-events-none absolute top-6 right-0 w-48 h-48 lg:top-10 lg:right-6 lg:w-80 lg:h-80 opacity-25 bg-[radial-gradient(circle,var(--color-arbell-blue)_1.5px,transparent_2px)] bg-size-[16px_16px] [mask-image:radial-gradient(closest-side,#000,transparent)]"
       />
 
       <div className="page-container relative text-center">
