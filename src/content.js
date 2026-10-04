@@ -53,25 +53,39 @@ export const FORMULARIO = {
 export const POR_QUE_ELEGIRNOS = {
   titulo: '¿Por qué elegir Bellissima?',
   bajada: 'Mucho más que una distribuidora.',
-  // Temas del selector: titulo (pestaña) y texto (panel azul)
+  // Temas del selector. corto: nombre de la pestaña (una línea); frase: lo grande del panel;
+  // texto: el detalle; ilustracion: tipo de mini ilustración (posteos, chat, camino o rutina,
+  // dibujadas en WhyChooseUs.jsx) y sus textos. titulo queda como nombre completo del tema.
   beneficios: [
     {
       titulo: 'Estrategias y materiales de venta listos para usar',
+      corto: 'Materiales listos',
+      frase: 'Contenido para publicar desde el primer día.',
+      ilustracion: { tipo: 'posteos' },
       texto:
         'No te dejamos sola pensando qué publicar. Te brindamos recursos gráficos, ideas para redes sociales y estrategias probadas para que impulses tus ventas desde el primer día.',
     },
     {
       titulo: 'Acompañamiento 1 a 1',
+      corto: 'Acompañamiento 1 a 1',
+      frase: 'Nunca sos un número.',
+      ilustracion: { tipo: 'chat', textos: ['¿Cómo arranco?', 'Te ayudamos a armar tu plan 😊'] },
       texto:
         'En nuestro equipo no sos un número de cuenta. Contás con la atención directa y personalizada de nosotras. Evaluamos tu punto de partida, escuchamos tus objetivos y diseñamos un plan a tu medida.',
     },
     {
       titulo: 'Capacitación comercial continua',
+      corto: 'Capacitación',
+      frase: 'Te formamos para vender y liderar.',
+      ilustracion: { tipo: 'camino', textos: ['Ventas', 'Atención al cliente', 'Liderazgo'] },
       texto:
         'Te formamos no solo en el conocimiento de las líneas de producto, sino en técnicas de venta, atención al cliente y desarrollo de liderazgo para que construyas una carrera sólida en Arbell.',
     },
     {
       titulo: 'Asesoramiento técnico para compradores',
+      corto: 'Asesoramiento',
+      frase: 'Armamos la rutina ideal para vos.',
+      ilustracion: { tipo: 'rutina', textos: ['Limpieza', 'Tratamiento', 'Hidratación'] },
       texto:
         'Si buscás productos para tu consumo, te brindamos una consultoría personalizada para responder todas tus dudas y armar la rutina perfecta para vos y tu familia.',
     },

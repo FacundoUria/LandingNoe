@@ -40,6 +40,9 @@
   --animate-draw-oval: draw-oval 900ms var(--ease-soft) both;
   /* Barra de progreso del autoplay de "¿Por qué elegir Bellissima?" */
   --animate-progress: progress 6s linear forwards;
+  /* Mini ilustraciones de "¿Por qué elegir Bellissima?" (el estado final es el del elemento) */
+  --animate-fan-in: fan-in 600ms var(--ease-spring) backwards;
+  --animate-light-on: light-on 500ms var(--ease-spring) backwards;
   /* Puntos de "escribiendo…" del chat de Preguntas frecuentes (se escalonan con delay) */
   --animate-typing: typing 1s ease-in-out infinite;
   /* Entrada de cada burbuja del chat: pop desde su lado (con origin-bottom-left/right) */
@@ -152,6 +155,24 @@
     30% {
       opacity: 1;
       transform: translateY(-3px);
+    }
+  }
+
+  @keyframes fan-in {
+    from {
+      opacity: 0;
+      transform: translateX(0) rotate(0) scale(0.85);
+    }
+  }
+
+  @keyframes light-on {
+    0% {
+      background-color: rgb(255 255 255 / 0.12);
+      color: rgb(255 255 255 / 0.5);
+      transform: scale(0.85);
+    }
+    60% {
+      transform: scale(1.12);
     }
   }
 
