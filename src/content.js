@@ -102,11 +102,11 @@ export const QUIENES_SOMOS = {
     texto:
       'En Bellissima elegimos ir un paso más allá. No somos solo una distribuidora que entrega productos: somos tus socias estratégicas, tus mentoras y tu red de soporte diario.',
   },
-  cta: {
-    titulo: '¿Querés emprender con nosotras?',
-    bajada: 'Te acompañamos desde el primer día. Vos ponés las ganas, nosotras el resto.',
-    datos: ['Sin experiencia previa', 'Inscripción gratuita', 'Sin pedido mínimo'],
-    boton: 'Quiero sumarme',
+  // Cierre personal al final de la sección
+  cierre: {
+    frase: 'Nos encantaría acompañarte en este camino.',
+    firma: 'Mary y Noe',
+    link: 'Quiero sumarme',
   },
 }
 
