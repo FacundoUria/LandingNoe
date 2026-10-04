@@ -2,6 +2,8 @@ import { useRef, useState } from 'react'
 import { SECTION_IDS, TEAM_AVATAR, TEAM_IMAGE } from '../config.js'
 import { QUIENES_SOMOS } from '../content.js'
 import { useReveal } from '../hooks/useReveal.js'
+import Doodle from './Doodle.jsx'
+import HandUnderline from './HandUnderline.jsx'
 import Reveal from './Reveal.jsx'
 
 const STAGGER_MS = 90
@@ -43,6 +45,7 @@ function TeamPhoto() {
         loading="lazy"
         className={`reveal ${visible ? 'is-visible' : ''} relative w-full aspect-[4/3] object-cover object-top rounded-3xl shadow-lg border border-white`}
       />
+      <Doodle type="heart" delay={700} className="hidden sm:block absolute -top-7 -right-5 lg:-top-9 lg:-right-8 w-12 h-12 lg:w-14 lg:h-14 rotate-12 text-arbell-accent" />
     </div>
   )
 }
@@ -139,14 +142,14 @@ export default function AboutUs() {
     <section
       id={SECTION_IDS.quienesSomos}
       aria-labelledby="quienes-somos-titulo"
-      className="page-container mt-14 lg:mt-24 scroll-mt-20"
+      className="page-container mt-10 lg:mt-16 scroll-mt-20"
     >
       <Reveal className="text-center max-w-2xl mx-auto">
         <span className="text-[11px] font-bold text-arbell-blue uppercase tracking-wider bg-sky-50 px-3 py-1 rounded-full">
           {QUIENES_SOMOS.etiqueta}
         </span>
         <h2 id="quienes-somos-titulo" className="mt-3 text-2xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-          {QUIENES_SOMOS.titulo}
+          <HandUnderline text={QUIENES_SOMOS.titulo} />
         </h2>
         <p className="mt-3 text-base lg:text-xl font-semibold text-arbell-blue">{QUIENES_SOMOS.bajada}</p>
       </Reveal>
@@ -330,27 +333,31 @@ export default function AboutUs() {
             ))}
           </ul>
 
-          <a
-            href={`#${SECTION_IDS.formulario}`}
-            className="group relative overflow-hidden mt-8 lg:mt-10 inline-flex items-center gap-2 bg-white text-arbell-blue font-extrabold text-sm lg:text-base uppercase tracking-wider px-7 py-3.5 lg:px-8 lg:py-4 rounded-xl shadow-lg transition duration-200 hover:-translate-y-0.5 hover:bg-arbell-light hover:shadow-xl hover:shadow-black/20 active:scale-95 focus-visible:outline-white"
-          >
-            {/* Brillo que cruza el botón cada ~4s, como el del formulario */}
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-linear-to-r from-transparent via-sky-200/70 to-transparent animate-shine"
-            />
-            <span className="relative">{cta.boton}</span>
-            <svg
-              className="relative w-4 h-4 lg:w-5 lg:h-5 transition-transform duration-200 group-hover:translate-x-1"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
+          {/* Flecha a mano apuntando al botón (solo donde hay lugar al costado) */}
+          <span className="relative inline-block mt-8 lg:mt-10">
+            <Doodle type="arrow" delay={200} className="hidden md:block absolute right-full top-1/2 -translate-y-1/2 mr-3 w-20 h-12 -rotate-6 text-amber-300/80" />
+            <a
+              href={`#${SECTION_IDS.formulario}`}
+              className="group relative overflow-hidden inline-flex items-center gap-2 bg-white text-arbell-blue font-extrabold text-sm lg:text-base uppercase tracking-wider px-7 py-3.5 lg:px-8 lg:py-4 rounded-xl shadow-lg transition duration-200 hover:-translate-y-0.5 hover:bg-arbell-light hover:shadow-xl hover:shadow-black/20 active:scale-95 focus-visible:outline-white"
             >
-              <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </a>
+              {/* Brillo que cruza el botón cada ~4s, como el del formulario */}
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-linear-to-r from-transparent via-sky-200/70 to-transparent animate-shine"
+              />
+              <span className="relative">{cta.boton}</span>
+              <svg
+                className="relative w-4 h-4 lg:w-5 lg:h-5 transition-transform duration-200 group-hover:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
+          </span>
         </div>
       </Reveal>
     </section>

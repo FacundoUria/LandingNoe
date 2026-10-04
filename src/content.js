@@ -61,7 +61,8 @@ export const POR_QUE_ELEGIRNOS = {
 
 export const QUIENES_SOMOS = {
   etiqueta: 'Quiénes somos',
-  titulo: 'Conocé Bellissima: tu Distribuidora Oficial Arbell',
+  // Lo que va entre ** lleva el subrayado a mano
+  titulo: 'Conocé **Bellissima**: tu Distribuidora Oficial Arbell',
   bajada: 'Pasión por la belleza, el bienestar integral y el crecimiento personal.',
   imagenAlt: 'Noe y Mary, líderes de Distribuidora Bellissima',
   // A la vista, al lado de la foto
@@ -185,7 +186,8 @@ export const PREGUNTAS_FRECUENTES = {
 }
 
 export const COMO_EMPEZAR = {
-  titulo: '¿Cómo empezar?',
+  // Lo que va entre ** lleva el subrayado a mano
+  titulo: '¿Cómo **empezar**?',
   bajada: 'En 3 pasos simples.',
   pasos: [
     { titulo: 'Completá el formulario', texto: 'Dejanos tus datos: te lleva menos de un minuto.' },

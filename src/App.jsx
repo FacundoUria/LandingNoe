@@ -13,7 +13,7 @@ import { SHOW_PRODUCTOS } from './config.js'
 
 export default function App() {
   return (
-    <div className="bg-slate-50 text-slate-800 font-sans min-h-screen pb-16 antialiased selection:bg-arbell-blue selection:text-white">
+    <div className="bg-white text-slate-800 font-sans min-h-screen antialiased selection:bg-arbell-blue selection:text-white">
       <Header />
       <main>
         <Hero />

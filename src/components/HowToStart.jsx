@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { SECTION_IDS } from '../config.js'
 import { COMO_EMPEZAR } from '../content.js'
+import HandUnderline from './HandUnderline.jsx'
 import Reveal from './Reveal.jsx'
+import Wave from './Wave.jsx'
 
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)'
 
@@ -76,67 +78,73 @@ export default function HowToStart() {
   const { listRef, trackRef, fillRef, circleRefs, reached } = useStepsProgress(pasos.length)
 
   return (
-    <section aria-labelledby="como-empezar-titulo" className="page-container mt-14 lg:mt-24">
-      <Reveal className="text-center">
-        <h2 id="como-empezar-titulo" className="text-2xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
-          {COMO_EMPEZAR.titulo}
-        </h2>
-        <p className="mt-2 text-sm lg:text-lg text-slate-500">{COMO_EMPEZAR.bajada}</p>
-      </Reveal>
+    <section aria-labelledby="como-empezar-titulo" className="relative bg-arbell-light/50 py-20 lg:py-32">
+      {/* Ondas arriba y abajo, como la del hero, para separar del blanco */}
+      <Wave flip className="-top-px text-white" />
+      <Wave className="-bottom-px text-white" />
 
-      <div ref={listRef} className="relative mt-8 lg:mt-12 lg:max-w-5xl lg:mx-auto">
-        {/* Línea: fondo gris + trazo azul que crece con el scroll */}
-        <div ref={trackRef} aria-hidden="true" className="absolute rounded-full bg-slate-200 overflow-hidden">
-          <div ref={fillRef} className="w-full h-full bg-arbell-blue" style={{ transform: 'scale(0)' }} />
+      <div className="page-container relative">
+        <Reveal className="text-center">
+          <h2 id="como-empezar-titulo" className="text-2xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
+            <HandUnderline text={COMO_EMPEZAR.titulo} />
+          </h2>
+          <p className="mt-2 text-sm lg:text-lg text-slate-500">{COMO_EMPEZAR.bajada}</p>
+        </Reveal>
+
+        <div ref={listRef} className="relative mt-8 lg:mt-12 lg:max-w-5xl lg:mx-auto">
+          {/* Línea: fondo gris + trazo azul que crece con el scroll */}
+          <div ref={trackRef} aria-hidden="true" className="absolute rounded-full bg-slate-200 overflow-hidden">
+            <div ref={fillRef} className="w-full h-full bg-arbell-blue" style={{ transform: 'scale(0)' }} />
+          </div>
+
+          <ol className="grid gap-8 lg:grid-cols-3 lg:gap-10">
+            {pasos.map(({ titulo, texto }, index) => {
+              const lit = index < reached
+              return (
+                <li key={titulo} className="relative flex gap-4 lg:flex-col lg:items-center lg:text-center">
+                  <span
+                    ref={(element) => {
+                      circleRefs.current[index] = element
+                    }}
+                    className={`relative z-10 shrink-0 flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 rounded-full border-2 text-lg lg:text-xl font-extrabold transition duration-500 ease-soft ${
+                      lit
+                        ? 'bg-arbell-blue border-arbell-blue text-white scale-105 shadow-lg shadow-arbell-blue/30'
+                        : 'bg-white border-slate-200 text-slate-400'
+                    }`}
+                  >
+                    {index + 1}
+                  </span>
+                  <div className="pt-2 lg:pt-0">
+                    <h3 className={`text-base lg:text-lg font-bold transition-colors duration-500 ${lit ? 'text-slate-900' : 'text-slate-500'}`}>
+                      {titulo}
+                    </h3>
+                    <p className="mt-1 text-sm lg:text-base text-slate-500 leading-relaxed">{texto}</p>
+                  </div>
+                </li>
+              )
+            })}
+          </ol>
         </div>
 
-        <ol className="grid gap-8 lg:grid-cols-3 lg:gap-10">
-          {pasos.map(({ titulo, texto }, index) => {
-            const lit = index < reached
-            return (
-              <li key={titulo} className="relative flex gap-4 lg:flex-col lg:items-center lg:text-center">
-                <span
-                  ref={(element) => {
-                    circleRefs.current[index] = element
-                  }}
-                  className={`relative z-10 shrink-0 flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 rounded-full border-2 text-lg lg:text-xl font-extrabold transition duration-500 ease-soft ${
-                    lit
-                      ? 'bg-arbell-blue border-arbell-blue text-white scale-105 shadow-lg shadow-arbell-blue/30'
-                      : 'bg-white border-slate-200 text-slate-400'
-                  }`}
-                >
-                  {index + 1}
-                </span>
-                <div className="pt-2 lg:pt-0">
-                  <h3 className={`text-base lg:text-lg font-bold transition-colors duration-500 ${lit ? 'text-slate-900' : 'text-slate-500'}`}>
-                    {titulo}
-                  </h3>
-                  <p className="mt-1 text-sm lg:text-base text-slate-500 leading-relaxed">{texto}</p>
-                </div>
-              </li>
-            )
-          })}
-        </ol>
-      </div>
-
-      <Reveal className="mt-10 text-center">
-        <a
-          href={`#${SECTION_IDS.formulario}`}
-          className="group inline-flex items-center gap-2 bg-arbell-blue text-white font-extrabold text-sm uppercase tracking-wider px-6 py-3.5 rounded-xl shadow-lg shadow-arbell-blue/25 transition duration-200 hover:-translate-y-0.5 hover:brightness-110 hover:shadow-xl hover:shadow-arbell-blue/35 active:scale-95"
-        >
-          {COMO_EMPEZAR.boton}
-          <svg
-            className="w-4 h-4 transition-transform duration-200 group-hover:-translate-y-0.5"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
+        <Reveal className="mt-10 text-center">
+          <a
+            href={`#${SECTION_IDS.formulario}`}
+            className="group inline-flex items-center gap-2 bg-arbell-blue text-white font-extrabold text-sm uppercase tracking-wider px-6 py-3.5 rounded-xl shadow-lg shadow-arbell-blue/25 transition duration-200 hover:-translate-y-0.5 hover:brightness-110 hover:shadow-xl hover:shadow-arbell-blue/35 active:scale-95"
           >
-            <path d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </a>
-      </Reveal>
+            {COMO_EMPEZAR.boton}
+            <svg
+              className="w-4 h-4 transition-transform duration-200 group-hover:-translate-y-0.5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
+        </Reveal>
+      </div>
     </section>
   )
 }

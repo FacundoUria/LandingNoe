@@ -28,8 +28,10 @@
   --animate-float-slower: float-slower 22s ease-in-out infinite;
   /* Brillo que cruza el botón principal cada 4s */
   --animate-shine: shine 4s ease-in-out infinite;
-  /* Trazo a mano del título: se dibuja después de que aparece el título */
-  --animate-draw: draw 800ms var(--ease-soft) 650ms both;
+  /* Trazos a mano (subrayados y doodles): se dibujan una vez; el retardo lo pasa cada uso */
+  --animate-draw: draw 800ms var(--ease-soft) both;
+  /* Destellos: titilan muy lento después de dibujarse */
+  --animate-twinkle: twinkle 5s ease-in-out infinite;
   /* "Saludo" del botón de WhatsApp cada 8s */
   --animate-wiggle: wiggle 8s ease-in-out infinite;
   /* Giro de muestra de la primera tarjeta de "Lo que encontrás con nosotras" */
@@ -115,6 +117,18 @@
     }
     to {
       stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes twinkle {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.55;
+      transform: scale(0.85) rotate(8deg);
     }
   }
 

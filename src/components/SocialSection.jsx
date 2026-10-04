@@ -24,7 +24,7 @@ const CHANNELS = [
 
 export default function SocialSection() {
   return (
-    <section aria-label="Redes sociales" className="page-container mt-14 mb-10 lg:mt-20 lg:mb-16">
+    <section aria-label="Redes sociales" className="page-container mt-10 lg:mt-14">
       <Reveal className="flex items-center justify-center gap-4">
         <h2 className="text-lg lg:text-xl font-extrabold uppercase tracking-wide text-arbell-blue">{REDES.titulo}</h2>
         <ul className="flex items-center gap-3">

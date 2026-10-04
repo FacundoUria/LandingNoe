@@ -4,6 +4,7 @@ import { PREGUNTAS_FRECUENTES } from '../content.js'
 import { useReveal } from '../hooks/useReveal.js'
 import { WhatsAppIcon } from './icons.jsx'
 import Reveal from './Reveal.jsx'
+import Doodle from './Doodle.jsx'
 import TeamFaces from './TeamFaces.jsx'
 
 const STAGGER_MS = 70
@@ -37,6 +38,7 @@ function ContactCard({ className = '' }) {
   return (
     <div className={`relative overflow-hidden rounded-3xl bg-linear-to-br from-arbell-dark to-arbell-blue p-6 lg:p-7 text-white shadow-lg shadow-arbell-dark/20 ${className}`}>
       <div aria-hidden="true" className="pointer-events-none absolute -right-10 -top-10 w-40 h-40 rounded-full bg-white/10 blur-2xl" />
+      <Doodle type="sparkle" twinkle delay={300} className="absolute top-5 right-5 w-8 h-8 text-amber-300" />
       <div className="relative">
         <TeamFaces size="w-11 h-11" />
         <p className="mt-4 text-lg font-bold">{contacto.titulo}</p>
@@ -63,113 +65,120 @@ export default function Faq() {
     <section
       id={SECTION_IDS.preguntasFrecuentes}
       aria-labelledby="faq-titulo"
-      className="page-container mt-14 lg:mt-24 scroll-mt-20 lg:grid lg:grid-cols-[35fr_65fr] lg:gap-14 lg:items-start"
+      className="relative isolate overflow-x-clip mt-14 lg:mt-24 py-16 lg:py-24 bg-linear-to-b from-sky-50 to-white scroll-mt-16"
     >
-      {/* Columna izquierda: sticky en desktop mientras se scrollea la sección */}
-      <div className="lg:sticky lg:top-24">
-        <Reveal className="text-center lg:text-left">
-          <span className="text-[11px] font-bold text-arbell-blue uppercase tracking-wider bg-sky-50 px-3 py-1 rounded-full">
-            {PREGUNTAS_FRECUENTES.etiqueta}
-          </span>
-          <h2 id="faq-titulo" className="mt-3 text-2xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            {PREGUNTAS_FRECUENTES.titulo}
-          </h2>
-          <p className="mt-3 text-sm lg:text-base text-slate-500">{PREGUNTAS_FRECUENTES.bajada}</p>
-        </Reveal>
-        {/* En desktop la card de contacto va acá; en mobile, después del acordeón */}
-        <Reveal delay={150} className="hidden lg:block mt-8">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -z-10 left-0 top-8 w-[26rem] h-[26rem] lg:w-[36rem] lg:h-[36rem] -translate-x-1/3 rounded-full bg-arbell-accent/10 blur-3xl"
+      />
+
+      <div className="page-container lg:grid lg:grid-cols-[35fr_65fr] lg:gap-14 lg:items-start">
+        {/* Columna izquierda: sticky en desktop mientras se scrollea la sección */}
+        <div className="lg:sticky lg:top-24">
+          <Reveal className="text-center lg:text-left">
+            <span className="text-[11px] font-bold text-arbell-blue uppercase tracking-wider bg-sky-50 px-3 py-1 rounded-full">
+              {PREGUNTAS_FRECUENTES.etiqueta}
+            </span>
+            <h2 id="faq-titulo" className="mt-3 text-2xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+              {PREGUNTAS_FRECUENTES.titulo}
+            </h2>
+            <p className="mt-3 text-sm lg:text-base text-slate-500">{PREGUNTAS_FRECUENTES.bajada}</p>
+          </Reveal>
+          {/* En desktop la card de contacto va acá; en mobile, después del acordeón */}
+          <Reveal delay={150} className="hidden lg:block mt-8">
+            <ContactCard />
+          </Reveal>
+        </div>
+
+        <ul ref={listRef} className="mt-6 lg:mt-0 space-y-3">
+          {PREGUNTAS_FRECUENTES.preguntas.map(({ icono, pregunta, respuesta }, index) => {
+            const open = openIndex === index
+            const buttonId = `faq-pregunta-${index}`
+            const panelId = `faq-respuesta-${index}`
+
+            return (
+              <li
+                key={pregunta}
+                className={`reveal ${listVisible ? 'is-visible' : ''}`}
+                style={{ '--reveal-delay': `${index * STAGGER_MS}ms` }}
+              >
+                <div
+                  className={`relative overflow-hidden rounded-2xl border bg-white transition-[border-color,box-shadow] duration-300 ${
+                    open ? 'border-arbell-blue/30 shadow-lg shadow-arbell-blue/10' : 'border-slate-200'
+                  }`}
+                >
+                  {/* Barra de acento de la pregunta abierta */}
+                  <span
+                    aria-hidden="true"
+                    className={`absolute left-0 inset-y-0 w-1 bg-arbell-blue origin-top transition-transform duration-300 ease-soft ${
+                      open ? 'scale-y-100' : 'scale-y-0'
+                    }`}
+                  />
+                  <h3>
+                    <button
+                      id={buttonId}
+                      type="button"
+                      aria-expanded={open}
+                      aria-controls={panelId}
+                      onClick={() => setOpenIndex(open ? null : index)}
+                      className={`group w-full flex items-center gap-3 lg:gap-4 px-4 py-4 lg:px-5 text-left text-sm lg:text-base font-semibold rounded-2xl transition-colors duration-200 focus-visible:outline-offset-[-2px] ${
+                        open ? 'text-slate-900' : 'text-slate-800 hover:bg-arbell-light/50'
+                      }`}
+                    >
+                      <span
+                        aria-hidden="true"
+                        className={`shrink-0 flex items-center justify-center w-10 h-10 rounded-full transition-colors duration-300 ${
+                          open ? 'bg-arbell-blue text-white' : 'bg-arbell-light text-arbell-blue'
+                        }`}
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.6" viewBox="0 0 24 24">
+                          <path d={ICONOS[icono]} strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </span>
+                      <span className="flex-1">{pregunta}</span>
+                      {/* "+" que gira 45° y queda como "×" al abrir */}
+                      <span
+                        aria-hidden="true"
+                        className={`shrink-0 flex items-center justify-center w-8 h-8 rounded-full transition duration-300 ease-soft ${
+                          open ? 'rotate-45 bg-arbell-light text-arbell-blue' : 'text-slate-400 group-hover:text-arbell-blue'
+                        }`}
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                          <path d="M12 4.5v15m7.5-7.5h-15" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </span>
+                    </button>
+                  </h3>
+                  {/* Altura animada con grid-template-rows (0fr → 1fr) + fade del contenido */}
+                  <div
+                    id={panelId}
+                    role="region"
+                    aria-labelledby={buttonId}
+                    inert={!open}
+                    className={`grid transition-[grid-template-rows] duration-300 ease-soft ${
+                      open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <p
+                        className={`pl-[4.25rem] pr-5 pb-5 lg:pl-[4.75rem] lg:pr-8 text-sm lg:text-base text-slate-600 leading-relaxed transition duration-300 ease-soft ${
+                          open ? 'opacity-100 translate-y-0 delay-75' : 'opacity-0 -translate-y-1'
+                        }`}
+                      >
+                        {withLeadHighlight(respuesta)}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            )
+          })}
+        </ul>
+
+        <Reveal className="lg:hidden mt-8">
           <ContactCard />
         </Reveal>
       </div>
-
-      <ul ref={listRef} className="mt-6 lg:mt-0 space-y-3">
-        {PREGUNTAS_FRECUENTES.preguntas.map(({ icono, pregunta, respuesta }, index) => {
-          const open = openIndex === index
-          const buttonId = `faq-pregunta-${index}`
-          const panelId = `faq-respuesta-${index}`
-
-          return (
-            <li
-              key={pregunta}
-              className={`reveal ${listVisible ? 'is-visible' : ''}`}
-              style={{ '--reveal-delay': `${index * STAGGER_MS}ms` }}
-            >
-              <div
-                className={`relative overflow-hidden rounded-2xl border bg-white transition-[border-color,box-shadow] duration-300 ${
-                  open ? 'border-arbell-blue/30 shadow-lg shadow-arbell-blue/10' : 'border-slate-200'
-                }`}
-              >
-                {/* Barra de acento de la pregunta abierta */}
-                <span
-                  aria-hidden="true"
-                  className={`absolute left-0 inset-y-0 w-1 bg-arbell-blue origin-top transition-transform duration-300 ease-soft ${
-                    open ? 'scale-y-100' : 'scale-y-0'
-                  }`}
-                />
-                <h3>
-                  <button
-                    id={buttonId}
-                    type="button"
-                    aria-expanded={open}
-                    aria-controls={panelId}
-                    onClick={() => setOpenIndex(open ? null : index)}
-                    className={`group w-full flex items-center gap-3 lg:gap-4 px-4 py-4 lg:px-5 text-left text-sm lg:text-base font-semibold rounded-2xl transition-colors duration-200 focus-visible:outline-offset-[-2px] ${
-                      open ? 'text-slate-900' : 'text-slate-800 hover:bg-arbell-light/50'
-                    }`}
-                  >
-                    <span
-                      aria-hidden="true"
-                      className={`shrink-0 flex items-center justify-center w-10 h-10 rounded-full transition-colors duration-300 ${
-                        open ? 'bg-arbell-blue text-white' : 'bg-arbell-light text-arbell-blue'
-                      }`}
-                    >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.6" viewBox="0 0 24 24">
-                        <path d={ICONOS[icono]} strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </span>
-                    <span className="flex-1">{pregunta}</span>
-                    {/* "+" que gira 45° y queda como "×" al abrir */}
-                    <span
-                      aria-hidden="true"
-                      className={`shrink-0 flex items-center justify-center w-8 h-8 rounded-full transition duration-300 ease-soft ${
-                        open ? 'rotate-45 bg-arbell-light text-arbell-blue' : 'text-slate-400 group-hover:text-arbell-blue'
-                      }`}
-                    >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                        <path d="M12 4.5v15m7.5-7.5h-15" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </span>
-                  </button>
-                </h3>
-                {/* Altura animada con grid-template-rows (0fr → 1fr) + fade del contenido */}
-                <div
-                  id={panelId}
-                  role="region"
-                  aria-labelledby={buttonId}
-                  inert={!open}
-                  className={`grid transition-[grid-template-rows] duration-300 ease-soft ${
-                    open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
-                  }`}
-                >
-                  <div className="overflow-hidden">
-                    <p
-                      className={`pl-[4.25rem] pr-5 pb-5 lg:pl-[4.75rem] lg:pr-8 text-sm lg:text-base text-slate-600 leading-relaxed transition duration-300 ease-soft ${
-                        open ? 'opacity-100 translate-y-0 delay-75' : 'opacity-0 -translate-y-1'
-                      }`}
-                    >
-                      {withLeadHighlight(respuesta)}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </li>
-          )
-        })}
-      </ul>
-
-      <Reveal className="lg:hidden mt-8">
-        <ContactCard />
-      </Reveal>
     </section>
   )
 }

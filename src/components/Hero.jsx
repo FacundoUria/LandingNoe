@@ -1,52 +1,13 @@
 import { useEffect, useRef } from 'react'
 import { HERO_IMAGE, SECTION_IDS, STORE_URL } from '../config.js'
 import { HERO } from '../content.js'
+import HandUnderline from './HandUnderline.jsx'
 import TeamFaces from './TeamFaces.jsx'
 
 // Íconos de línea de los ítems (la clave se elige en content.js, campo "icono")
 const ICONOS = {
   ganancia: 'M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941',
   reloj: 'M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z',
-}
-
-// Subrayado irregular estilo marcador (como los óvalos y flechas del flyer). Se dibuja al cargar.
-function HandUnderline({ children }) {
-  return (
-    <span className="relative inline-block whitespace-nowrap">
-      <span className="relative z-10">{children}</span>
-      <svg
-        aria-hidden="true"
-        className="absolute left-[-3%] -bottom-[0.12em] w-[106%] h-[0.32em] text-amber-300"
-        viewBox="0 0 300 24"
-        preserveAspectRatio="none"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-      >
-        <path
-          d="M4 15C46 8 92 6 140 8C188 10 236 12 296 6"
-          strokeWidth="6"
-          pathLength="1"
-          strokeDasharray="1"
-          className="animate-draw"
-        />
-        <path
-          d="M22 20C80 15 150 15 226 16"
-          strokeWidth="3.5"
-          pathLength="1"
-          strokeDasharray="1"
-          className="opacity-70 animate-draw [animation-delay:900ms]"
-        />
-      </svg>
-    </span>
-  )
-}
-
-// "texto **resaltado** texto": las partes entre ** llevan el subrayado a mano
-function withUnderline(text) {
-  return text
-    .split(/\*\*(.+?)\*\*/)
-    .map((part, index) => (index % 2 === 1 ? <HandUnderline key={index}>{part}</HandUnderline> : part))
 }
 
 // Parallax de la foto: solo desktop y sin movimiento reducido
@@ -130,7 +91,7 @@ export default function Hero() {
         </div>
 
         <h1 className="text-[1.9rem] sm:text-4xl lg:text-6xl leading-[1.05] font-extrabold tracking-tight mb-4 lg:mb-6 max-w-[19ch] lg:max-w-xl [text-shadow:0_2px_12px_rgb(0_40_90/0.35)] animate-fade-up [animation-delay:80ms]">
-          {withUnderline(HERO.titulo)}
+          <HandUnderline text={HERO.titulo} delay={650} />
         </h1>
 
         <p className="max-w-[34ch] text-sm sm:text-base lg:text-lg text-sky-100/90 leading-relaxed animate-fade-up [animation-delay:160ms]">
@@ -212,7 +173,7 @@ export default function Hero() {
       {/* Onda inferior: transición al fondo claro de la página */}
       <svg
         aria-hidden="true"
-        className="absolute inset-x-0 -bottom-px w-full h-8 md:h-12 lg:h-16 text-slate-50"
+        className="absolute inset-x-0 -bottom-px w-full h-8 md:h-12 lg:h-16 text-white"
         viewBox="0 0 1440 120"
         preserveAspectRatio="none"
         fill="currentColor"

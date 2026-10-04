@@ -1,5 +1,6 @@
 import { CATALOGO_URL, SECTION_IDS, STORE_URL, whatsappUrl } from '../config.js'
 import { FOOTER, NAV } from '../content.js'
+import Wave from './Wave.jsx'
 
 const EXTERNAL = { rel: 'noopener noreferrer', target: '_blank' }
 
@@ -13,7 +14,10 @@ const LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="bg-white border-t border-slate-200 pt-8 pb-16 text-center text-slate-500">
+    <footer className="relative mt-16 lg:mt-24 bg-arbell-navy pt-12 pb-20 lg:pt-16 text-center text-white/70">
+      {/* Onda arriba: transición desde el blanco */}
+      <Wave className="bottom-full -mb-px text-arbell-navy" />
+
       <div className="page-container">
         <div className="flex flex-col items-center gap-5 mb-6 lg:flex-row lg:justify-between lg:mb-0 lg:text-left">
           <div className="flex flex-col items-center lg:flex-row lg:gap-3">
@@ -21,20 +25,20 @@ export default function Footer() {
               src="/images/logo.jpg"
               alt="Distribuidora Bellissima"
               loading="lazy"
-              className="w-16 h-16 rounded-full object-cover border-2 border-sky-200 shadow-md mb-2 lg:mb-0"
+              className="w-16 h-16 rounded-full object-cover border-2 border-white/70 shadow-lg shadow-black/30 mb-2 lg:mb-0"
             />
             <div className="flex flex-col items-center lg:items-start">
-              <span className="text-base font-black text-slate-800 tracking-tight">Distribuidora Bellissima</span>
-              <span className="text-[11px] font-medium text-arbell-blue uppercase tracking-wider">{FOOTER.bajada}</span>
+              <span className="text-base lg:text-lg font-black text-white tracking-tight">Distribuidora Bellissima</span>
+              <span className="text-[11px] font-medium text-arbell-accent uppercase tracking-wider">{FOOTER.bajada}</span>
             </div>
           </div>
 
           <nav aria-label="Enlaces del pie">
-            <ul className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1.5 text-xs lg:text-sm font-medium text-slate-500">
+            <ul className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1.5 text-xs lg:text-sm font-medium text-white/80">
               {LINKS.map(({ label, ...linkProps }, index) => (
                 <li key={label} className="flex items-center gap-2">
-                  {index > 0 && <span aria-hidden="true" className="text-slate-300">·</span>}
-                  <a className="link-underline rounded-sm hover:text-arbell-blue" {...linkProps}>
+                  {index > 0 && <span aria-hidden="true" className="text-white/30">·</span>}
+                  <a className="link-underline rounded-sm hover:text-white focus-visible:outline-white" {...linkProps}>
                     {label}
                   </a>
                 </li>
@@ -43,7 +47,7 @@ export default function Footer() {
           </nav>
         </div>
 
-        <div className="text-[11px] lg:text-xs text-slate-400 lg:mt-8 lg:pt-6 lg:border-t lg:border-slate-100">
+        <div className="text-[11px] lg:text-xs text-white/50 lg:mt-10 lg:pt-6 lg:border-t lg:border-white/10">
           © {new Date().getFullYear()} {FOOTER.copyright}
         </div>
       </div>
