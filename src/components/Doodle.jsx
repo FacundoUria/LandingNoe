@@ -17,6 +17,22 @@ const SHAPES = {
     viewBox: '0 0 80 48',
     paths: ['M5 9C14 27 32 40 64 34', 'M54 25.5L66 33.5L55.5 42.5'],
   },
+  // Sello/insignia de bordes ondulados con un check
+  seal: {
+    viewBox: '0 0 48 48',
+    paths: [
+      'M24 4.5L28.2 8.6L34 7.4L35.6 13.1L41.2 15.1L39.4 20.6L43 25.3L38.4 28.8L39 34.8L33 35.4L29.4 40.3L24.2 37.4L19 40.4L15.4 35.5L9.4 35L10 29L5.3 25.5L8.9 20.8L7 15.3L12.6 13.2L14.1 7.5L19.9 8.6Z',
+      'M17 24.5L22 29.3L31.5 19',
+    ],
+  },
+  // Comillas de apertura dibujadas a mano
+  quote: {
+    viewBox: '0 0 48 48',
+    paths: [
+      'M20 12C13 14.5 8.5 20.5 9 28.5C9.4 34 15 35.6 17.6 32.4C20 29.4 17.4 25.4 12.8 26.6',
+      'M38 12C31 14.5 26.5 20.5 27 28.5C27.4 34 33 35.6 35.6 32.4C38 29.4 35.4 25.4 30.8 26.6',
+    ],
+  },
   // Garabato tipo espiral
   spiral: {
     viewBox: '0 0 48 48',

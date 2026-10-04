@@ -6,7 +6,8 @@ import Doodle from './Doodle.jsx'
 import HandUnderline from './HandUnderline.jsx'
 import Reveal from './Reveal.jsx'
 
-const STAGGER_MS = 90
+// Flecha curva hacia abajo, dibujada a mano, del link "Conocé nuestra historia"
+const ARROW_DOWN_PATHS = ['M14 6C30 8 37 19 29.5 35', 'M21.5 30L29.5 36L35 27.5']
 
 // Convierte "texto **resaltado** texto" en nodos, con las partes entre ** en negrita
 function withHighlights(text) {
@@ -30,12 +31,12 @@ function TeamPhoto() {
       <div
         aria-hidden="true"
         className={`absolute inset-0 rounded-3xl bg-linear-to-br from-arbell-accent to-arbell-blue transition duration-700 ease-soft delay-200 ${
-          visible ? 'opacity-100 translate-x-3 translate-y-3 lg:translate-x-5 lg:translate-y-5' : 'opacity-0 translate-x-0 translate-y-0'
+          visible ? 'opacity-100 translate-x-3 translate-y-3 lg:translate-x-6 lg:translate-y-6' : 'opacity-0 translate-x-0 translate-y-0'
         }`}
       />
       <div
         aria-hidden="true"
-        className={`absolute -top-3 -left-3 lg:-top-5 lg:-left-5 w-20 h-20 lg:w-28 lg:h-28 rounded-2xl bg-[radial-gradient(circle,var(--color-arbell-blue)_1.5px,transparent_2px)] bg-size-[12px_12px] transition duration-700 ease-soft delay-300 ${
+        className={`absolute -top-3 -left-3 lg:-top-7 lg:-left-7 w-20 h-20 lg:w-32 lg:h-32 rounded-2xl bg-[radial-gradient(circle,var(--color-arbell-blue)_1.5px,transparent_2px)] bg-size-[12px_12px] transition duration-700 ease-soft delay-300 ${
           visible ? 'opacity-40' : 'opacity-0'
         }`}
       />
@@ -45,14 +46,13 @@ function TeamPhoto() {
         loading="lazy"
         className={`reveal ${visible ? 'is-visible' : ''} relative w-full aspect-[4/3] object-cover object-top rounded-3xl shadow-lg border border-white`}
       />
-      <Doodle type="heart" delay={700} className="hidden sm:block absolute -top-7 -right-5 lg:-top-9 lg:-right-8 w-12 h-12 lg:w-14 lg:h-14 rotate-12 text-arbell-accent" />
+      <Doodle type="heart" delay={700} className="hidden sm:block absolute -top-7 -right-5 lg:-top-10 lg:-right-9 w-12 h-12 lg:w-16 lg:h-16 rotate-12 text-arbell-accent" />
     </div>
   )
 }
 
 export default function AboutUs() {
   const { porQue, cta } = QUIENES_SOMOS
-  const [datosRef, datosVisible] = useReveal()
   const [historiaOpen, setHistoriaOpen] = useState(false)
   const historiaRef = useRef(null)
 
@@ -80,57 +80,60 @@ export default function AboutUs() {
         <span className="text-[11px] font-bold text-arbell-blue uppercase tracking-wider bg-sky-50 px-3 py-1 rounded-full">
           {QUIENES_SOMOS.etiqueta}
         </span>
-        <h2 id="quienes-somos-titulo" className="mt-3 text-2xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+        <h2 id="quienes-somos-titulo" className="mt-3 text-3xl sm:text-4xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.05]">
           <HandUnderline text={QUIENES_SOMOS.titulo} />
         </h2>
-        <p className="mt-3 text-base lg:text-xl font-semibold text-arbell-blue">{QUIENES_SOMOS.bajada}</p>
+        <p className="mt-4 inline-flex items-center gap-2 text-sm sm:text-base lg:text-lg font-semibold text-arbell-blue">
+          <Doodle type="seal" delay={500} strokeWidth={2} className="shrink-0 w-7 h-7 lg:w-8 lg:h-8 text-arbell-accent" />
+          {QUIENES_SOMOS.subtitulo}
+        </p>
       </Reveal>
 
-      <div className="mt-8 lg:mt-12 lg:grid lg:grid-cols-2 lg:gap-14 lg:items-center">
-        {TEAM_IMAGE && <TeamPhoto />}
+      {/* Desktop: foto protagonista (55%) levemente rotada a la izquierda, texto centrado a la derecha */}
+      <div className="mt-8 lg:mt-14 lg:grid lg:grid-cols-[55fr_45fr] lg:gap-16 lg:items-center">
+        {TEAM_IMAGE && (
+          <div className="lg:-rotate-2">
+            <TeamPhoto />
+          </div>
+        )}
 
-        <div className="mt-8 lg:mt-0">
-          <Reveal as="p" delay={120} className="text-lg lg:text-2xl font-semibold text-slate-800 leading-snug">
+        <div className="mt-10 lg:mt-0">
+          <Reveal as="figure" delay={120}>
+            <Doodle type="quote" delay={300} className="w-11 h-11 lg:w-14 lg:h-14 -ml-1 text-arbell-accent" />
+            <blockquote className="mt-2 text-2xl lg:text-3xl font-bold text-slate-900 tracking-tight leading-snug">
+              <p>{QUIENES_SOMOS.cita}</p>
+            </blockquote>
+          </Reveal>
+
+          <Reveal as="p" delay={220} className="mt-4 text-base lg:text-lg text-slate-600 leading-relaxed">
             {QUIENES_SOMOS.resumen}
           </Reveal>
 
-          {/* Datos destacados: informativos, sin hover. En mobile uno por fila (ícono al costado);
-              desde sm, tres columnas iguales con el ícono arriba y el texto que hace wrap. */}
-          <ul ref={datosRef} className="mt-5 lg:mt-7 grid gap-2.5 sm:grid-cols-3 lg:gap-3">
-            {QUIENES_SOMOS.datos.map(({ emoji, texto }, index) => (
-              <li
-                key={texto}
-                className={`reveal ${datosVisible ? 'is-visible' : ''} min-w-0 flex items-center gap-3 sm:flex-col sm:justify-center sm:gap-2 sm:text-center rounded-2xl border border-slate-200/80 bg-white px-3 py-2.5 sm:py-3.5 shadow-xs`}
-                style={{ '--reveal-delay': `${200 + index * STAGGER_MS}ms` }}
-              >
-                <span aria-hidden="true" className="shrink-0 flex items-center justify-center w-9 h-9 rounded-full bg-arbell-light text-lg">
-                  {emoji}
-                </span>
-                <span className="min-w-0 text-sm sm:text-xs lg:text-sm font-semibold text-slate-700 leading-snug wrap-break-word hyphens-auto">
-                  {texto}
-                </span>
-              </li>
-            ))}
-          </ul>
-
-          <Reveal delay={480} className="mt-6 lg:mt-8">
+          <Reveal delay={320} className="mt-6 lg:mt-8">
+            {/* Link (no botón con borde) con flecha curva a mano que se redibuja en hover */}
             <button
               type="button"
               aria-expanded={historiaOpen}
               aria-controls="historia-bellissima"
               onClick={toggleHistoria}
-              className="group inline-flex items-center gap-2 rounded-full border-2 border-arbell-blue/25 bg-white px-5 py-2.5 text-sm font-bold text-arbell-blue shadow-xs transition duration-200 hover:border-arbell-blue hover:bg-arbell-light/60 active:scale-95"
+              className="group inline-flex items-center gap-1.5 rounded-sm text-base lg:text-lg font-semibold text-arbell-blue transition-colors duration-200 hover:text-arbell-dark"
             >
-              {historiaOpen ? QUIENES_SOMOS.botonHistoriaCerrar : QUIENES_SOMOS.botonHistoria}
+              <span className="link-underline">
+                {historiaOpen ? QUIENES_SOMOS.botonHistoriaCerrar : QUIENES_SOMOS.botonHistoria}
+              </span>
               <svg
-                className={`w-4 h-4 transition-transform duration-300 ease-soft ${historiaOpen ? 'rotate-180' : 'group-hover:translate-y-0.5'}`}
+                aria-hidden="true"
+                viewBox="0 0 48 48"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2.5"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className={`w-8 h-8 transition-transform duration-300 ease-soft ${historiaOpen ? 'rotate-180' : ''}`}
               >
-                <path d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" strokeLinecap="round" strokeLinejoin="round" />
+                {ARROW_DOWN_PATHS.map((d) => (
+                  <path key={d} d={d} pathLength="1" strokeDasharray="1" strokeDashoffset="0" className="group-hover:animate-redraw" />
+                ))}
               </svg>
             </button>
           </Reveal>

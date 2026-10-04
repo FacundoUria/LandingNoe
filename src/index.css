@@ -28,6 +28,8 @@
   --animate-shine: shine 4s ease-in-out infinite;
   /* Trazos a mano (subrayados y doodles): se dibujan una vez; el retardo lo pasa cada uso */
   --animate-draw: draw 800ms var(--ease-soft) both;
+  /* Redibujo de un trazo al pasar el mouse ("Conocé nuestra historia") */
+  --animate-redraw: draw 600ms var(--ease-soft);
   /* Óvalo a mano de la pestaña activa (trazo en px de pantalla, ver WhyChooseUs) */
   --animate-draw-oval: draw-oval 900ms var(--ease-soft) both;
   /* Barra de progreso del autoplay de "¿Por qué elegir Bellissima?" */

@@ -81,16 +81,13 @@ export const POR_QUE_ELEGIRNOS = {
 export const QUIENES_SOMOS = {
   etiqueta: 'Quiénes somos',
   // Lo que va entre ** lleva el subrayado a mano
-  titulo: 'Conocé **Bellissima**: tu Distribuidora Oficial Arbell',
-  bajada: 'Pasión por la belleza, el bienestar integral y el crecimiento personal.',
+  titulo: 'Somos **Mary y Noe**',
+  // Va debajo del título, con un sello dibujado a mano
+  subtitulo: 'Distribuidora Oficial Arbell en Mendoza',
   imagenAlt: 'Noe y Mary, líderes de Distribuidora Bellissima',
-  // A la vista, al lado de la foto
-  resumen: 'Somos Mary y Noe. Acercamos los productos Arbell a cada hogar y acompañamos a quienes quieren emprender.',
-  datos: [
-    { emoji: '🏅', texto: 'Distribuidora Oficial Arbell' },
-    { emoji: '👭', texto: 'Lideradas por Mary y Noe' },
-    { emoji: '🤝', texto: 'Acompañamiento diario' },
-  ],
+  // A la vista, al lado de la foto: la cita grande y el texto corto
+  cita: 'Pasión por la belleza, el bienestar integral y el crecimiento personal.',
+  resumen: 'Acercamos los productos Arbell a cada hogar y acompañamos a quienes quieren emprender.',
   botonHistoria: 'Conocé nuestra historia',
   botonHistoriaCerrar: 'Mostrar menos',
   historiaTitulo: 'Nuestra historia',
