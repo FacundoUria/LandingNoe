@@ -87,29 +87,32 @@ export const QUIENES_SOMOS = {
       'En Bellissima elegimos ir un paso más allá. No somos solo una distribuidora que entrega productos: somos tus socias estratégicas, tus mentoras y tu red de soporte diario.',
   },
   beneficiosTitulo: 'Lo que encontrás con nosotras',
-  // Frente de las tarjetas que giran
-  beneficiosPista: 'Tocá para ver más',
+  // Pistas de las tarjetas que giran: en pantallas táctiles, con mouse y en el dorso
+  beneficiosPistaTactil: 'Tocá para ver más',
+  beneficiosPistaMouse: 'Click para ver más',
+  beneficiosVolver: 'Volver',
+  // icono: megafono, apreton, birrete o dialogo (dibujos en AboutUs.jsx)
   beneficios: [
     {
-      emoji: '📣',
+      icono: 'megafono',
       titulo: 'Estrategias y materiales de venta listos para usar',
       texto:
         'No te dejamos sola pensando qué publicar. Te brindamos recursos gráficos, ideas para redes sociales y estrategias probadas para que impulses tus ventas desde el primer día.',
     },
     {
-      emoji: '🤝',
+      icono: 'apreton',
       titulo: 'Acompañamiento 1 a 1',
       texto:
         'En nuestro equipo no sos un número de cuenta. Contás con la atención directa y personalizada de nosotras. Evaluamos tu punto de partida, escuchamos tus objetivos y diseñamos un plan a tu medida.',
     },
     {
-      emoji: '🎓',
+      icono: 'birrete',
       titulo: 'Capacitación comercial continua',
       texto:
         'Te formamos no solo en el conocimiento de las líneas de producto, sino en técnicas de venta, atención al cliente y desarrollo de liderazgo para que construyas una carrera sólida en Arbell.',
     },
     {
-      emoji: '💬',
+      icono: 'dialogo',
       titulo: 'Asesoramiento técnico para compradores',
       texto:
         'Si buscás productos para tu consumo, te brindamos una consultoría personalizada para responder todas tus dudas y armar la rutina perfecta para vos y tu familia.',

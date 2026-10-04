@@ -54,12 +54,47 @@ function TeamPhoto() {
 // necesitan; va inline para cubrir iOS anteriores a 15.4.
 const FACE_STYLE = { WebkitBackfaceVisibility: 'hidden', backfaceVisibility: 'hidden' }
 
+// Íconos de línea de las tarjetas (la clave se elige en content.js, campo "icono").
+// El apretón de manos es de Lucide (licencia ISC); el resto, del mismo set que el FAQ.
+const FLIP_ICONS = {
+  megafono: [
+    'M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 110-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 01-1.44-4.282m3.102.069a18.03 18.03 0 01-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 018.835 2.535M10.34 6.66a23.847 23.847 0 008.835-2.535m0 0A23.74 23.74 0 0018.795 3m.38 1.125a23.91 23.91 0 011.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 001.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 010 3.46',
+  ],
+  apreton: [
+    'm11 17 2 2a1 1 0 1 0 3-3',
+    'm14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4',
+    'm21 3 1 11h-2',
+    'M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3',
+    'M3 4h8',
+  ],
+  birrete: [
+    'M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5',
+  ],
+  dialogo: [
+    'M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z',
+  ],
+}
+
+const TURN_ICON_PATH =
+  'M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99'
+
+function LineIcon({ paths, className, strokeWidth = 1.6 }) {
+  return (
+    <svg className={className} fill="none" stroke="currentColor" strokeWidth={strokeWidth} viewBox="0 0 24 24" aria-hidden="true">
+      {paths.map((d) => (
+        <path key={d} d={d} strokeLinecap="round" strokeLinejoin="round" />
+      ))}
+    </svg>
+  )
+}
+
 // Tarjeta que gira en 3D: frente con ícono y título, dorso con el texto.
-// Gira solo con click/tap o Enter/Espacio (aria-pressed). En hover (mouse) el frente apenas
-// se inclina y se eleva, como pista de que se puede tocar.
+// Gira solo con click/tap o Enter/Espacio (aria-pressed). En hover (mouse) el frente se eleva
+// y se inclina un poco, y la esquina doblada se levanta, como pista de que se puede tocar.
 // Frente y dorso comparten la misma celda de grid, así la tarjeta mide lo que la cara más alta.
-function FlipCard({ emoji, titulo, texto, popDelay, visible, peek, onPeekEnd }) {
+function FlipCard({ icono, titulo, texto, popDelay, visible, peek, onPeekEnd }) {
   const [flipped, setFlipped] = useState(false)
+  const iconPaths = FLIP_ICONS[icono]
 
   function handleClick() {
     setFlipped((value) => !value)
@@ -71,44 +106,75 @@ function FlipCard({ emoji, titulo, texto, popDelay, visible, peek, onPeekEnd }) 
       type="button"
       aria-pressed={flipped}
       onClick={handleClick}
-      className="group/card block w-full h-full text-left rounded-2xl perspective-distant"
+      className="group/card block w-full h-full text-left rounded-3xl perspective-distant"
     >
       <span
         className={`flip-inner grid h-full transition-[transform,translate] duration-700 ease-soft ${
-          flipped ? 'rotate-y-180' : 'group-hover/card:-rotate-y-6 group-hover/card:-translate-y-1'
+          flipped ? 'rotate-y-180' : 'group-hover/card:-rotate-y-6 group-hover/card:rotate-x-3 group-hover/card:-translate-y-1.5'
         } ${peek ? 'animate-flip-peek' : ''}`}
         onAnimationEnd={(event) => {
           if (event.animationName === 'flip-peek') onPeekEnd()
         }}
       >
         {/* Frente */}
-        <span className="[grid-area:1/1] flex flex-col bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs flip-face [transform:rotateY(0deg)] transition-shadow duration-300 group-hover/card:shadow-lg group-hover/card:shadow-arbell-blue/10" style={FACE_STYLE}>
+        <span
+          className="relative overflow-hidden [grid-area:1/1] flex flex-col rounded-3xl border border-slate-200/70 bg-linear-to-b from-arbell-light/60 to-white p-6 shadow-sm flip-face [transform:rotateY(0deg)_translateZ(1px)] transition-shadow duration-300 group-hover/card:shadow-xl group-hover/card:shadow-arbell-blue/20"
+          style={FACE_STYLE}
+        >
+          {/* Marca de agua: el mismo ícono en grande, cortado por el borde */}
+          <LineIcon paths={iconPaths} strokeWidth={1.2} className="pointer-events-none absolute -bottom-6 -right-6 w-28 h-28 text-arbell-blue/5" />
+
+          {/* Esquina doblada que deja ver el azul del dorso; en hover se levanta un poco más */}
           <span
             aria-hidden="true"
-            className={`flex items-center justify-center w-14 h-14 rounded-full bg-arbell-light text-3xl ${visible ? 'animate-pop' : ''}`}
+            className="pointer-events-none absolute top-0 right-0 w-10 h-10 origin-top-right transition-transform duration-300 ease-soft group-hover/card:scale-[1.35]"
+          >
+            <span className="absolute inset-0 bg-white [clip-path:polygon(0_0,100%_0,100%_100%)]" />
+            {/* Sombra del pliegue: triángulo desplazado (sin filter, que en Safari puede atravesar el giro) */}
+            <span className="absolute inset-0 -translate-x-0.5 translate-y-0.5 bg-arbell-dark/20 [clip-path:polygon(0_0,100%_100%,0_100%)]" />
+            <span className="absolute inset-0 bg-linear-to-br from-arbell-blue to-arbell-dark [clip-path:polygon(0_0,100%_100%,0_100%)]" />
+          </span>
+
+          <span
+            aria-hidden="true"
+            className={`relative flex items-center justify-center w-14 h-14 rounded-full bg-linear-to-br from-arbell-blue to-arbell-accent text-white shadow-lg shadow-arbell-blue/25 ${
+              visible ? 'animate-pop' : ''
+            }`}
             style={{ animationDelay: `${popDelay}ms` }}
           >
-            {emoji}
+            <LineIcon paths={iconPaths} className="w-7 h-7" />
           </span>
-          <span className="mt-3 block text-base font-bold text-slate-900 leading-snug">{titulo}</span>
-          <span aria-hidden="true" className="mt-auto pt-4 flex items-center gap-1.5 text-xs font-semibold text-arbell-blue">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path
-                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            {QUIENES_SOMOS.beneficiosPista}
+          <span className="relative mt-4 block text-lg font-bold text-slate-900 leading-snug">{titulo}</span>
+
+          {/* Pista de giro: "Tocá" en pantallas táctiles, "Click" con mouse */}
+          <span
+            aria-hidden="true"
+            className="relative mt-auto pt-5 self-start"
+          >
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-arbell-blue/20 bg-white px-3 py-1.5 text-xs font-semibold text-arbell-blue shadow-xs">
+              <LineIcon paths={[TURN_ICON_PATH]} strokeWidth={2} className="w-4 h-4 transition-transform duration-500 ease-soft group-hover/card:rotate-180" />
+              <span className="pointer-fine:hidden">{QUIENES_SOMOS.beneficiosPistaTactil}</span>
+              <span className="hidden pointer-fine:inline">{QUIENES_SOMOS.beneficiosPistaMouse}</span>
+            </span>
           </span>
         </span>
 
         {/* Dorso */}
-        <span className="[grid-area:1/1] flex flex-col justify-center bg-linear-to-br from-arbell-blue to-[#005a9e] text-white rounded-2xl p-5 shadow-md flip-face [transform:rotateY(180deg)]" style={FACE_STYLE}>
-          <span aria-hidden="true" className="block text-xs font-bold uppercase tracking-wider text-sky-200">
+        <span
+          className="relative overflow-hidden [grid-area:1/1] flex flex-col rounded-3xl bg-linear-to-br from-arbell-dark to-arbell-blue p-6 text-white shadow-lg shadow-arbell-dark/20 flip-face [transform:rotateY(180deg)_translateZ(1px)]"
+          style={FACE_STYLE}
+        >
+          <Doodle type="sparkle" className="absolute top-4 right-4 w-8 h-8 text-white/30" />
+          <span aria-hidden="true" className="relative block pr-10 text-xs font-bold uppercase tracking-wider text-white/70">
             {titulo}
           </span>
-          <span className="mt-2 block text-sm leading-relaxed">{texto}</span>
+          <span className="relative mt-3 block text-[15px] leading-relaxed">{texto}</span>
+          <span aria-hidden="true" className="relative mt-auto pt-5 self-start">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 text-xs font-semibold">
+              <LineIcon paths={[TURN_ICON_PATH]} strokeWidth={2} className="w-4 h-4" />
+              {QUIENES_SOMOS.beneficiosVolver}
+            </span>
+          </span>
         </span>
       </span>
     </button>
