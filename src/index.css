@@ -30,8 +30,6 @@
   --animate-shine: shine 4s ease-in-out infinite;
   /* "Saludo" del botón de WhatsApp cada 8s */
   --animate-wiggle: wiggle 8s ease-in-out infinite;
-  /* Cinta de beneficios: recorre la mitad del track (hay dos copias) en loop */
-  --animate-marquee: marquee 40s linear infinite;
   /* Giro de muestra de la primera tarjeta de "Lo que encontrás con nosotras" */
   --animate-flip-peek: flip-peek 2400ms var(--ease-soft) 900ms;
 
@@ -116,12 +114,6 @@
     25%,
     100% {
       transform: translateX(450%) skewX(-20deg);
-    }
-  }
-
-  @keyframes marquee {
-    to {
-      transform: translateX(-50%);
     }
   }
 

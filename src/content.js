@@ -156,17 +156,6 @@ export const PREGUNTAS_FRECUENTES = {
   dudaLink: 'Escribinos por WhatsApp',
 }
 
-// Cinta deslizante debajo del hero
-export const CINTA_BENEFICIOS = [
-  'Sin pedido mínimo',
-  'Inscripción gratuita',
-  'Hasta 60% de ganancia',
-  'Flexibilidad horaria',
-  'Capacitación constante',
-  'Catálogo digital gratis',
-  'Acompañamiento 1 a 1',
-]
-
 export const COMO_EMPEZAR = {
   titulo: '¿Cómo empezar?',
   bajada: 'En 3 pasos simples.',

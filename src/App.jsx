@@ -1,7 +1,6 @@
 import Header from './components/Header.jsx'
 import Hero from './components/Hero.jsx'
 import LeadForm from './components/LeadForm.jsx'
-import BenefitsTicker from './components/BenefitsTicker.jsx'
 import WhyChooseUs from './components/WhyChooseUs.jsx'
 import HowToStart from './components/HowToStart.jsx'
 import AboutUs from './components/AboutUs.jsx'
@@ -19,7 +18,6 @@ export default function App() {
       <main>
         <Hero />
         <LeadForm />
-        <BenefitsTicker />
         <WhyChooseUs />
         <HowToStart />
         <AboutUs />

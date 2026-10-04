@@ -9,7 +9,7 @@ export default function WhyChooseUs() {
   const [listRef, listVisible] = useReveal()
 
   return (
-    <section aria-labelledby="por-que-titulo" className="page-container mt-10 lg:mt-16 text-center">
+    <section aria-labelledby="por-que-titulo" className="page-container mt-12 lg:mt-20 text-center">
       <Reveal as="h2" id="por-que-titulo" className="text-lg lg:text-2xl font-bold text-slate-900 tracking-tight">
         {POR_QUE_ELEGIRNOS.titulo}
       </Reveal>
