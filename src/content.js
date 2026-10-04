@@ -9,13 +9,18 @@ export const NAV = {
 
 export const HERO = {
   badge: 'Emprendimiento de venta directa',
-  titulo: 'Multiplicá tus ingresos con Arbell Bellissima',
+  // Lo que va entre **dobles asteriscos** lleva el subrayado dibujado a mano
+  titulo: 'Multiplicá **tus ingresos** con Arbell Bellissima',
   texto:
     'Convertite en Asesora Independiente de la mano del equipo líder de Distribuidora Bellissima. Capacitación, soporte y un negocio a tu medida.',
+  firma: 'Lideradas por Mary y Noe',
+  // icono: ganancia o reloj (dibujos en Hero.jsx)
   items: [
-    { emoji: '🛍️', texto: 'Importantes ganancias y premios' },
-    { emoji: '📅', texto: 'Flexibilidad horaria total' },
+    { icono: 'ganancia', texto: 'Importantes ganancias y premios' },
+    { icono: 'reloj', texto: 'Flexibilidad horaria total' },
   ],
+  botonPrincipal: 'Quiero sumarme',
+  botonSecundario: 'Ver tienda online',
   imagenAlt: 'Mary y Noe, del equipo de Distribuidora Bellissima',
 }
 

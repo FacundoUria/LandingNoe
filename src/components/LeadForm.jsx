@@ -195,7 +195,7 @@ export default function LeadForm() {
     <section
       id={SECTION_IDS.formulario}
       aria-label={FORMULARIO.titulo}
-      className="page-container relative z-20 -mt-16 lg:-mt-24 scroll-mt-20 animate-fade-up [animation-delay:320ms]"
+      className="page-container relative z-20 -mt-16 lg:-mt-24 scroll-mt-20 animate-fade-up [animation-delay:460ms]"
     >
       <div className="lg:max-w-5xl lg:mx-auto lg:grid lg:grid-cols-[2fr_3fr] bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden">
         {/* Panel azul: columna izquierda en desktop, franja arriba de la card en mobile/tablet */}

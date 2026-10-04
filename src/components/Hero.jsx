@@ -1,6 +1,53 @@
 import { useEffect, useRef } from 'react'
-import { HERO_IMAGE } from '../config.js'
+import { HERO_IMAGE, SECTION_IDS, STORE_URL } from '../config.js'
 import { HERO } from '../content.js'
+import TeamFaces from './TeamFaces.jsx'
+
+// Íconos de línea de los ítems (la clave se elige en content.js, campo "icono")
+const ICONOS = {
+  ganancia: 'M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941',
+  reloj: 'M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z',
+}
+
+// Subrayado irregular estilo marcador (como los óvalos y flechas del flyer). Se dibuja al cargar.
+function HandUnderline({ children }) {
+  return (
+    <span className="relative inline-block whitespace-nowrap">
+      <span className="relative z-10">{children}</span>
+      <svg
+        aria-hidden="true"
+        className="absolute left-[-3%] -bottom-[0.12em] w-[106%] h-[0.32em] text-amber-300"
+        viewBox="0 0 300 24"
+        preserveAspectRatio="none"
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+      >
+        <path
+          d="M4 15C46 8 92 6 140 8C188 10 236 12 296 6"
+          strokeWidth="6"
+          pathLength="1"
+          strokeDasharray="1"
+          className="animate-draw"
+        />
+        <path
+          d="M22 20C80 15 150 15 226 16"
+          strokeWidth="3.5"
+          pathLength="1"
+          strokeDasharray="1"
+          className="opacity-70 animate-draw [animation-delay:900ms]"
+        />
+      </svg>
+    </span>
+  )
+}
+
+// "texto **resaltado** texto": las partes entre ** llevan el subrayado a mano
+function withUnderline(text) {
+  return text
+    .split(/\*\*(.+?)\*\*/)
+    .map((part, index) => (index % 2 === 1 ? <HandUnderline key={index}>{part}</HandUnderline> : part))
+}
 
 // Parallax de la foto: solo desktop y sin movimiento reducido
 const PARALLAX_QUERY = '(min-width: 64rem) and (prefers-reduced-motion: no-preference)'
@@ -82,34 +129,80 @@ export default function Hero() {
           <span>{HERO.badge}</span>
         </div>
 
-        <h1 className="text-[1.7rem] leading-tight sm:text-4xl lg:text-5xl lg:leading-tight font-extrabold tracking-tight mb-3 lg:mb-5 max-w-[19ch] lg:max-w-xl [text-shadow:0_2px_12px_rgb(0_40_90/0.35)] animate-fade-up [animation-delay:80ms]">
-          {HERO.titulo}
+        <h1 className="text-[1.9rem] sm:text-4xl lg:text-6xl leading-[1.05] font-extrabold tracking-tight mb-4 lg:mb-6 max-w-[19ch] lg:max-w-xl [text-shadow:0_2px_12px_rgb(0_40_90/0.35)] animate-fade-up [animation-delay:80ms]">
+          {withUnderline(HERO.titulo)}
         </h1>
 
-        <div className="lg:max-w-lg">
-          <p className="text-[13px] sm:text-sm lg:text-lg text-sky-100 leading-relaxed mb-4 lg:mb-7 animate-fade-up [animation-delay:160ms]">
-            {HERO.texto}
-          </p>
+        <p className="max-w-[34ch] text-sm sm:text-base lg:text-lg text-sky-100/90 leading-relaxed animate-fade-up [animation-delay:160ms]">
+          {HERO.texto}
+        </p>
 
-          <ul className="flex flex-col gap-2.5 lg:flex-row lg:gap-8 text-xs sm:text-sm font-medium text-white/95 animate-fade-up [animation-delay:240ms]">
-            {HERO.items.map(({ emoji, texto }) => (
-              <li key={texto} className="flex items-center gap-2">
-                <span
-                  aria-hidden="true"
-                  className="shrink-0 flex items-center justify-center w-8 h-8 lg:w-10 lg:h-10 rounded-lg bg-white/15 border border-white/20 text-base lg:text-lg"
-                >
-                  {emoji}
-                </span>
-                {texto}
-              </li>
-            ))}
-          </ul>
+        <div className="mt-4 lg:mt-5 flex items-center gap-2.5 animate-fade-up [animation-delay:220ms]">
+          <TeamFaces size="w-8 h-8" />
+          <span className="text-xs lg:text-sm font-medium text-white/80">{HERO.firma}</span>
+        </div>
+
+        {/* Ítems como pastillas de vidrio */}
+        <ul className="mt-5 lg:mt-7 flex flex-wrap gap-2 lg:gap-3 animate-fade-up [animation-delay:280ms]">
+          {HERO.items.map(({ icono, texto }) => (
+            <li
+              key={texto}
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-md px-3.5 py-2 text-xs sm:text-sm font-medium text-white whitespace-nowrap"
+            >
+              <svg className="w-4 h-4 lg:w-5 lg:h-5 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" aria-hidden="true">
+                <path d={ICONOS[icono]} strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              {texto}
+            </li>
+          ))}
+        </ul>
+
+        {/* Botones: uno abajo del otro en mobile, en fila en desktop */}
+        <div className="mt-6 lg:mt-9 flex flex-col gap-3 lg:flex-row animate-fade-up [animation-delay:340ms]">
+          <a
+            href={`#${SECTION_IDS.formulario}`}
+            className="group relative overflow-hidden inline-flex items-center justify-center gap-2 w-full lg:w-auto rounded-xl bg-white px-7 py-3.5 text-sm font-extrabold uppercase tracking-wider text-arbell-blue shadow-lg shadow-[#002a55]/25 transition duration-200 hover:-translate-y-0.5 hover:bg-arbell-light hover:shadow-xl active:scale-95 focus-visible:outline-white"
+          >
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-linear-to-r from-transparent via-sky-200/70 to-transparent animate-shine"
+            />
+            <span className="relative">{HERO.botonPrincipal}</span>
+            <svg
+              className="relative w-4 h-4 transition-transform duration-200 group-hover:translate-y-0.5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
+          <a
+            href={STORE_URL}
+            rel="noopener noreferrer"
+            target="_blank"
+            className="group inline-flex items-center justify-center gap-2 w-full lg:w-auto rounded-xl border border-white/40 px-7 py-3.5 text-sm font-bold text-white transition duration-200 hover:bg-white/10 hover:border-white/70 active:scale-95 focus-visible:outline-white"
+          >
+            {HERO.botonSecundario}
+            <svg
+              className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
         </div>
 
         {/* Foto del equipo en mobile/tablet: a todo el ancho, debajo de los ítems y antes del
             formulario. Recorte desde arriba para que entren las dos de la cara a los hombros. */}
         {HERO_IMAGE && (
-          <div className="lg:hidden relative mt-6 h-[260px] md:h-80 rounded-3xl overflow-hidden shadow-xl shadow-[#002a55]/30 animate-photo-in [animation-delay:300ms]">
+          <div className="lg:hidden relative mt-6 h-[260px] md:h-80 rounded-3xl overflow-hidden shadow-xl shadow-[#002a55]/30 animate-photo-in [animation-delay:400ms]">
             <img src={HERO_IMAGE} alt={HERO.imagenAlt} className="w-full h-full object-cover object-top" />
             <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-arbell-blue/70 to-transparent" />
           </div>
