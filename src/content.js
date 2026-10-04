@@ -20,7 +20,6 @@ export const HERO = {
     { icono: 'reloj', texto: 'Flexibilidad horaria total' },
   ],
   botonPrincipal: 'Quiero sumarme',
-  botonSecundario: 'Ver tienda online',
   imagenAlt: 'Mary y Noe, del equipo de Distribuidora Bellissima',
 }
 
