@@ -52,6 +52,12 @@ export const TEAM_IMAGE = '/images/equipo-recorte.jpg'
 // Mini foto circular para la firma de "¿Por qué Bellissima?" (recorte cuadrado de las dos caras)
 export const TEAM_AVATAR = '/images/equipo-avatar.jpg'
 
+// Mini fotos circulares del formulario ("Te contactamos nosotras")
+export const TEAM_FACES = [
+  { src: '/images/equipo-mary.jpg', nombre: 'Mary' },
+  { src: '/images/equipo-noe.jpg', nombre: 'Noe' },
+]
+
 export function whatsappUrl(message = WHATSAPP.defaultMessage) {
   return `https://wa.me/${WHATSAPP.number}?text=${encodeURIComponent(message)}`
 }

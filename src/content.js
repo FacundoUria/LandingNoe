@@ -20,12 +20,21 @@ export const HERO = {
 }
 
 export const FORMULARIO = {
-  badge: 'Te respondemos por WhatsApp',
+  // Panel azul (en mobile, franja arriba de la card)
+  equipo: 'Te contactamos nosotras',
   titulo: 'Comenzá en 1 minuto',
   bajada: 'Completá tus datos para recibir asesoramiento personalizado.',
+  ventajas: ['Respuesta por WhatsApp', 'Sin costo de inscripción', 'Sin compromiso'],
+  progreso: 'Datos completos',
+  servicioTitulo: 'Servicio de interés *',
+  servicios: ['Emprender / Venta de productos', 'Asesoramiento personal', 'Comprar productos', 'Consulta general'],
+  notaAgregar: '+ Agregar una nota (opcional)',
+  notaOcultar: '− Ocultar nota',
+  notaLabel: 'Nota',
+  notaPlaceholder: 'Ej: Puedo recibir llamadas solo por la tarde',
   boton: 'Quiero unirme al equipo',
   botonEnviando: 'Abriendo WhatsApp...',
-  aviso: 'Al enviar tus datos serás contactado de manera directa y personalizada por Distribuidora Bellissima.',
+  aviso: 'Tus datos solo se usan para contactarte.',
   // Mensajes debajo de cada campo cuando falta o no es válido
   errores: {
     fullName: 'Ingresá tu nombre completo.',
