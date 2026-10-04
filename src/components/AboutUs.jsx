@@ -307,25 +307,48 @@ export default function AboutUs() {
         })}
       </ul>
 
-      <Reveal className="relative mt-10 lg:mt-16 overflow-hidden rounded-3xl bg-linear-to-br from-[#004b8d] to-arbell-blue px-6 py-8 lg:px-12 lg:py-12 text-center text-white shadow-xl">
-        <div aria-hidden="true" className="absolute -right-16 -top-16 w-56 h-56 rounded-full bg-white/10 blur-2xl pointer-events-none animate-float-slow" />
-        <div className="relative max-w-2xl mx-auto">
-          <h3 className="text-xl lg:text-3xl font-extrabold tracking-tight">{cta.titulo}</h3>
-          <p className="mt-3 text-sm lg:text-base text-sky-100 leading-relaxed">{cta.texto}</p>
+      {/* Llamado a la acción: corto, con tres datos y botón al formulario */}
+      <Reveal className="relative mt-10 lg:mt-16 overflow-hidden rounded-3xl bg-linear-to-br from-[#004b8d] to-arbell-blue px-6 py-12 lg:px-12 lg:py-20 text-center text-white shadow-xl">
+        <div aria-hidden="true" className="pointer-events-none">
+          <div className="absolute -right-16 -top-16 w-56 h-56 lg:w-80 lg:h-80 rounded-full bg-white/10 blur-2xl animate-float-slow will-change-transform" />
+          <div className="absolute -left-12 -bottom-16 w-48 h-48 lg:w-72 lg:h-72 rounded-full bg-sky-300/15 blur-xl animate-float-slower will-change-transform" />
+        </div>
+        <div className="relative max-w-3xl mx-auto">
+          <h3 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold tracking-tight leading-tight">{cta.titulo}</h3>
+          <p className="mt-3 lg:mt-4 text-sm sm:text-base lg:text-lg text-sky-100">{cta.bajada}</p>
+
+          <ul className="mt-7 lg:mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-8 text-sm lg:text-base font-semibold">
+            {cta.datos.map((dato) => (
+              <li key={dato} className="flex items-center gap-2">
+                <span aria-hidden="true" className="flex items-center justify-center w-6 h-6 rounded-full bg-white/15 text-emerald-300">
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+                    <path d="M4.5 12.75l6 6 9-13.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+                {dato}
+              </li>
+            ))}
+          </ul>
+
           <a
             href={`#${SECTION_IDS.formulario}`}
-            className="group mt-6 inline-flex items-center gap-2 bg-white text-arbell-blue font-extrabold text-sm uppercase tracking-wider px-6 py-3.5 rounded-xl shadow-lg transition duration-200 hover:-translate-y-0.5 hover:bg-arbell-light hover:shadow-xl hover:shadow-black/20 active:scale-95 focus-visible:outline-white"
+            className="group relative overflow-hidden mt-8 lg:mt-10 inline-flex items-center gap-2 bg-white text-arbell-blue font-extrabold text-sm lg:text-base uppercase tracking-wider px-7 py-3.5 lg:px-8 lg:py-4 rounded-xl shadow-lg transition duration-200 hover:-translate-y-0.5 hover:bg-arbell-light hover:shadow-xl hover:shadow-black/20 active:scale-95 focus-visible:outline-white"
           >
-            {cta.boton}
+            {/* Brillo que cruza el botón cada ~4s, como el del formulario */}
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-linear-to-r from-transparent via-sky-200/70 to-transparent animate-shine"
+            />
+            <span className="relative">{cta.boton}</span>
             <svg
-              className="w-4 h-4 transition-transform duration-200 group-hover:-translate-y-0.5"
+              className="relative w-4 h-4 lg:w-5 lg:h-5 transition-transform duration-200 group-hover:translate-x-1"
               fill="none"
               stroke="currentColor"
               strokeWidth="2.5"
               viewBox="0 0 24 24"
               aria-hidden="true"
             >
-              <path d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </a>
         </div>

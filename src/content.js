@@ -101,10 +101,10 @@ export const QUIENES_SOMOS = {
     },
   ],
   cta: {
-    titulo: 'Quiero emprender y sumarme al equipo',
-    texto:
-      '¿Buscás generar tus propios ingresos, manejar tus horarios y crecer económicamente? En Bellissima no caminás sola. Te acompañamos desde tu primer día con capacitaciones, herramientas digitales y una comunidad que te impulsa a cumplir tus metas. No importa si tenés experiencia previa o si estás empezando desde cero: ¡acá tenés el espacio para crecer!',
-    boton: 'Completar el formulario',
+    titulo: '¿Querés emprender con nosotras?',
+    bajada: 'Te acompañamos desde el primer día. Vos ponés las ganas, nosotras el resto.',
+    datos: ['Sin experiencia previa', 'Inscripción gratuita', 'Sin pedido mínimo'],
+    boton: 'Quiero sumarme',
   },
 }
 
