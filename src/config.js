@@ -43,10 +43,10 @@ export const PRODUCT_LINES = [
 ]
 
 // Foto del hero. Con null se muestra solo el fondo azul.
-// equipo-recorte.jpg es la parte de la foto de equipo.jpg sin el texto del flyer.
-export const HERO_IMAGE = '/images/equipo-recorte.jpg'
+// equipo-hero.jpg es equipo-recorte.jpg sin los carteles dibujados de "Noe" y "Mary" ni las flechas.
+export const HERO_IMAGE = '/images/equipo-hero.jpg'
 
-// Foto de la sección "Quiénes somos"
+// Foto de la sección "Quiénes somos" (equipo.jpg sin el texto del flyer, con los nombres)
 export const TEAM_IMAGE = '/images/equipo-recorte.jpg'
 
 export function whatsappUrl(message = WHATSAPP.defaultMessage) {

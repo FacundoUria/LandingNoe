@@ -56,15 +56,15 @@ export default function Hero() {
         <div className="absolute -left-12 top-40 w-48 h-48 lg:w-72 lg:h-72 rounded-full bg-sky-300/15 blur-xl animate-float-slower will-change-transform" />
       </div>
 
-      {/* Foto del equipo: a la derecha del texto, fundida con el fondo por el borde izquierdo.
-          En mobile/tablet termina detrás de la card del formulario. En desktop se extiende
-          por arriba (lg:-top-24) para que el parallax no deje un hueco. */}
+      {/* Foto del equipo en desktop: a la derecha del texto, fundida con el fondo por el borde
+          izquierdo. Se extiende por arriba (-top-24) para que el parallax no deje un hueco.
+          En mobile/tablet la foto va debajo de los ítems (ver más abajo). */}
       {HERO_IMAGE && (
         <div
           ref={parallaxRef}
-          className="absolute right-0 bottom-12 w-1/2 h-60 sm:h-72 md:w-[46%] md:h-80 lg:-top-24 lg:bottom-0 lg:h-auto lg:w-[min(50%,48rem)] will-change-transform"
+          className="hidden lg:block absolute right-0 -top-24 bottom-0 w-[min(50%,48rem)] will-change-transform"
         >
-          <div className="w-full h-full [mask-image:linear-gradient(to_right,transparent,#000_18%)] lg:[mask-image:linear-gradient(to_right,transparent,#000_35%)] animate-photo-in [animation-delay:200ms]">
+          <div className="w-full h-full [mask-image:linear-gradient(to_right,transparent,#000_35%)] animate-photo-in [animation-delay:200ms]">
             <img
               src={HERO_IMAGE}
               alt={HERO.imagenAlt}
@@ -86,7 +86,7 @@ export default function Hero() {
           {HERO.titulo}
         </h1>
 
-        <div className="max-w-[52%] md:max-w-[50%] lg:max-w-lg">
+        <div className="lg:max-w-lg">
           <p className="text-[13px] sm:text-sm lg:text-lg text-sky-100 leading-relaxed mb-4 lg:mb-7 animate-fade-up [animation-delay:160ms]">
             {HERO.texto}
           </p>
@@ -105,6 +105,15 @@ export default function Hero() {
             ))}
           </ul>
         </div>
+
+        {/* Foto del equipo en mobile/tablet: a todo el ancho, debajo de los ítems y antes del
+            formulario. Recorte desde arriba para que entren las dos de la cara a los hombros. */}
+        {HERO_IMAGE && (
+          <div className="lg:hidden relative mt-6 h-[260px] md:h-80 rounded-3xl overflow-hidden shadow-xl shadow-[#002a55]/30 animate-photo-in [animation-delay:300ms]">
+            <img src={HERO_IMAGE} alt={HERO.imagenAlt} className="w-full h-full object-cover object-top" />
+            <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-arbell-blue/70 to-transparent" />
+          </div>
+        )}
       </div>
 
       {/* Onda inferior: transición al fondo claro de la página */}
