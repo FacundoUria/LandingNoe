@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { SECTION_IDS, whatsappUrl } from '../config.js'
 import { PREGUNTAS_FRECUENTES } from '../content.js'
 import { WhatsAppIcon } from './icons.jsx'
+import Doodle from './Doodle.jsx'
 import FaqChat from './FaqChat.jsx'
 import Reveal from './Reveal.jsx'
 
@@ -31,6 +32,11 @@ export default function Faq() {
             {PREGUNTAS_FRECUENTES.titulo}
           </h2>
           <p className="mt-3 text-sm lg:text-lg text-slate-500">{PREGUNTAS_FRECUENTES.bajada}</p>
+          {/* "¡Probá!" con flecha a mano hacia el chat (solo desktop) */}
+          <div aria-hidden="true" className="hidden lg:flex items-center justify-end gap-1 mt-6 pr-2">
+            <span className="font-hand text-4xl font-bold text-arbell-blue -rotate-6">{PREGUNTAS_FRECUENTES.probar}</span>
+            <Doodle type="arrow" delay={400} strokeWidth={2.5} className="w-24 h-14 rotate-6 text-arbell-blue" />
+          </div>
           <p className="mt-4 lg:mt-8 text-sm lg:text-base text-slate-600">
             {PREGUNTAS_FRECUENTES.otraDuda}{' '}
             <a
@@ -45,8 +51,18 @@ export default function Faq() {
           </p>
         </Reveal>
 
-        <Reveal delay={150} className="mt-8 lg:mt-0">
-          <FaqChat />
+        <Reveal delay={150} className="relative mt-8 lg:mt-0">
+          {/* Detrás del chat (desktop): círculo difuminado, destello y corazón a mano */}
+          <div aria-hidden="true" className="hidden lg:block pointer-events-none">
+            <div className="absolute -inset-12 rounded-full bg-arbell-accent/15 blur-3xl" />
+            <Doodle type="sparkle" twinkle delay={600} className="absolute -top-8 -right-6 w-12 h-12 text-amber-300" />
+            <Doodle type="heart" delay={900} className="absolute bottom-24 -left-10 w-11 h-11 -rotate-12 text-arbell-accent" />
+          </div>
+
+          {/* Desktop: leve inclinación que se endereza en hover, sombra profunda y flotación lenta */}
+          <div className="relative rounded-[1.75rem] shadow-xl shadow-arbell-dark/10 lg:shadow-2xl lg:shadow-arbell-dark/25 lg:rotate-[1.5deg] lg:hover:rotate-0 transition-[rotate] duration-500 ease-soft lg:animate-float-y">
+            <FaqChat />
+          </div>
 
           {/* Lista completa en texto, para quien prefiera leer todo */}
           <div className="mt-4 text-center lg:text-left">

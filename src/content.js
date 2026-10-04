@@ -113,6 +113,8 @@ export const PREGUNTAS_FRECUENTES = {
   etiqueta: 'Preguntas frecuentes',
   titulo: 'Todo lo que querés saber antes de empezar',
   bajada: 'Tocá una pregunta y te respondemos',
+  // Junto a la flecha a mano que apunta al chat (solo desktop)
+  probar: '¡Probá!',
   otraDuda: '¿Otra duda?',
   otraDudaLink: 'Escribinos por WhatsApp',
   // Por pregunta: corta (botón de respuesta rápida), rapida (respuesta corta en negrita) y
@@ -178,12 +180,14 @@ export const PREGUNTAS_FRECUENTES = {
   chat: {
     nombre: 'Mary y Noe',
     estado: 'en línea',
-    saludo: '¡Hola! Somos Mary y Noe 👋 Tocá una pregunta y te respondemos al toque.',
+    saludo: '¡Hola! Somos Mary y Noe 👋 Elegí una pregunta y te respondemos.',
     escribiendo: 'Escribiendo…',
     // Llega después de responder 3 preguntas
     cierre: '¿Querés que te contactemos? Completá el formulario y te escribimos 😊',
     cierreBoton: 'Ir al formulario',
     preguntasLabel: 'Preguntas',
+    // Barra de "escribir mensaje" decorativa (no se puede escribir)
+    placeholder: 'Elegí una pregunta 👇',
   },
   verTodas: 'Ver todas las respuestas',
   ocultarTodas: 'Ocultar las respuestas',

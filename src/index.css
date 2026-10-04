@@ -40,6 +40,8 @@
   --animate-progress: progress 6s linear forwards;
   /* Puntos de "escribiendo…" del chat de Preguntas frecuentes (se escalonan con delay) */
   --animate-typing: typing 1s ease-in-out infinite;
+  /* Entrada de cada burbuja del chat: pop desde su lado (con origin-bottom-left/right) */
+  --animate-bubble-in: bubble-in 320ms var(--ease-spring) backwards;
   /* Destellos: titilan muy lento después de dibujarse */
   --animate-twinkle: twinkle 5s ease-in-out infinite;
   /* "Saludo" del botón de WhatsApp cada 8s */
@@ -121,6 +123,13 @@
     }
     to {
       stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes bubble-in {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
     }
   }
 
