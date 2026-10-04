@@ -54,6 +54,40 @@ function TeamPhoto() {
 // necesitan; va inline para cubrir iOS anteriores a 15.4.
 const FACE_STYLE = { WebkitBackfaceVisibility: 'hidden', backfaceVisibility: 'hidden' }
 
+// Color propio de cada tarjeta (la clave se elige en content.js, campo "color").
+// Clases completas para que Tailwind las detecte. El dorso usa tonos oscuros del color para que
+// el texto blanco se lea bien (dorado y verde en sus tonos claros no tienen contraste suficiente).
+const CARD_COLORS = {
+  azul: {
+    icon: 'from-arbell-blue to-arbell-accent shadow-arbell-blue/30',
+    blob: 'bg-arbell-blue/10',
+    hover: 'group-hover/card:border-arbell-blue/40 group-hover/card:shadow-arbell-blue/20',
+    turn: 'bg-arbell-blue',
+    back: 'from-arbell-dark to-arbell-blue shadow-arbell-dark/25',
+  },
+  rosa: {
+    icon: 'from-pink-600 to-pink-400 shadow-pink-500/30',
+    blob: 'bg-pink-500/10',
+    hover: 'group-hover/card:border-pink-500/40 group-hover/card:shadow-pink-500/20',
+    turn: 'bg-pink-500',
+    back: 'from-pink-800 to-pink-600 shadow-pink-800/25',
+  },
+  dorado: {
+    icon: 'from-amber-600 to-arbell-gold shadow-amber-500/30',
+    blob: 'bg-arbell-gold/10',
+    hover: 'group-hover/card:border-arbell-gold/40 group-hover/card:shadow-amber-500/20',
+    turn: 'bg-arbell-gold',
+    back: 'from-amber-800 to-amber-600 shadow-amber-800/25',
+  },
+  verde: {
+    icon: 'from-emerald-600 to-emerald-400 shadow-emerald-500/30',
+    blob: 'bg-emerald-500/10',
+    hover: 'group-hover/card:border-emerald-500/40 group-hover/card:shadow-emerald-500/20',
+    turn: 'bg-emerald-500',
+    back: 'from-emerald-800 to-emerald-600 shadow-emerald-800/25',
+  },
+}
+
 // Íconos de línea de las tarjetas (la clave se elige en content.js, campo "icono").
 // El apretón de manos es de Lucide (licencia ISC); el resto, del mismo set que el FAQ.
 const FLIP_ICONS = {
@@ -88,13 +122,26 @@ function LineIcon({ paths, className, strokeWidth = 1.6 }) {
   )
 }
 
-// Tarjeta que gira en 3D: frente con ícono y título, dorso con el texto.
+// Botoncito circular de giro (decorativo: la tarjeta entera es el botón)
+function TurnBadge({ className }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`absolute bottom-4 right-4 flex items-center justify-center w-9 h-9 rounded-full text-white shadow-md ${className}`}
+    >
+      <LineIcon paths={[TURN_ICON_PATH]} strokeWidth={2} className="w-4 h-4 transition-transform duration-500 ease-soft group-hover/card:rotate-180" />
+    </span>
+  )
+}
+
+// Tarjeta horizontal que gira en 3D: frente con ícono, título y frase gancho; dorso con el texto.
 // Gira solo con click/tap o Enter/Espacio (aria-pressed). En hover (mouse) el frente se eleva
-// y se inclina un poco, y la esquina doblada se levanta, como pista de que se puede tocar.
+// y toma el color de la tarjeta en el borde y la sombra.
 // Frente y dorso comparten la misma celda de grid, así la tarjeta mide lo que la cara más alta.
-function FlipCard({ icono, titulo, texto, popDelay, visible, peek, onPeekEnd }) {
+function FlipCard({ icono, color, titulo, gancho, texto, popDelay, visible, peek, onPeekEnd }) {
   const [flipped, setFlipped] = useState(false)
   const iconPaths = FLIP_ICONS[icono]
+  const colors = CARD_COLORS[color] ?? CARD_COLORS.azul
 
   function handleClick() {
     setFlipped((value) => !value)
@@ -110,7 +157,7 @@ function FlipCard({ icono, titulo, texto, popDelay, visible, peek, onPeekEnd }) 
     >
       <span
         className={`flip-inner grid h-full transition-[transform,translate] duration-700 ease-soft ${
-          flipped ? 'rotate-y-180' : 'group-hover/card:-rotate-y-6 group-hover/card:rotate-x-3 group-hover/card:-translate-y-1.5'
+          flipped ? 'rotate-y-180' : 'group-hover/card:-translate-y-1'
         } ${peek ? 'animate-flip-peek' : ''}`}
         onAnimationEnd={(event) => {
           if (event.animationName === 'flip-peek') onPeekEnd()
@@ -118,63 +165,39 @@ function FlipCard({ icono, titulo, texto, popDelay, visible, peek, onPeekEnd }) 
       >
         {/* Frente */}
         <span
-          className="relative overflow-hidden [grid-area:1/1] flex flex-col rounded-3xl border border-slate-200/70 bg-linear-to-b from-arbell-light/60 to-white p-6 shadow-sm flip-face [transform:rotateY(0deg)_translateZ(1px)] transition-shadow duration-300 group-hover/card:shadow-xl group-hover/card:shadow-arbell-blue/20"
+          className={`relative overflow-hidden [grid-area:1/1] flex items-start gap-4 lg:gap-5 rounded-3xl border border-slate-200 bg-white p-5 pb-16 lg:p-6 lg:pr-16 shadow-sm flip-face [transform:rotateY(0deg)_translateZ(1px)] transition-[border-color,box-shadow] duration-300 group-hover/card:shadow-xl ${colors.hover}`}
           style={FACE_STYLE}
         >
-          {/* Marca de agua: el mismo ícono en grande, cortado por el borde */}
-          <LineIcon paths={iconPaths} strokeWidth={1.2} className="pointer-events-none absolute -bottom-6 -right-6 w-28 h-28 text-arbell-blue/5" />
-
-          {/* Esquina doblada que deja ver el azul del dorso; en hover se levanta un poco más */}
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute top-0 right-0 w-10 h-10 origin-top-right transition-transform duration-300 ease-soft group-hover/card:scale-[1.35]"
-          >
-            <span className="absolute inset-0 bg-white [clip-path:polygon(0_0,100%_0,100%_100%)]" />
-            {/* Sombra del pliegue: triángulo desplazado (sin filter, que en Safari puede atravesar el giro) */}
-            <span className="absolute inset-0 -translate-x-0.5 translate-y-0.5 bg-arbell-dark/20 [clip-path:polygon(0_0,100%_100%,0_100%)]" />
-            <span className="absolute inset-0 bg-linear-to-br from-arbell-blue to-arbell-dark [clip-path:polygon(0_0,100%_100%,0_100%)]" />
-          </span>
+          {/* Círculo difuminado del color de la tarjeta asomando desde la esquina */}
+          <span aria-hidden="true" className={`pointer-events-none absolute -top-12 -right-12 w-36 h-36 rounded-full blur-2xl ${colors.blob}`} />
 
           <span
             aria-hidden="true"
-            className={`relative flex items-center justify-center w-14 h-14 rounded-full bg-linear-to-br from-arbell-blue to-arbell-accent text-white shadow-lg shadow-arbell-blue/25 ${
+            className={`relative shrink-0 flex items-center justify-center w-16 h-16 rounded-2xl bg-linear-to-br text-white shadow-lg ${colors.icon} ${
               visible ? 'animate-pop' : ''
             }`}
             style={{ animationDelay: `${popDelay}ms` }}
           >
-            <LineIcon paths={iconPaths} className="w-7 h-7" />
+            <LineIcon paths={iconPaths} className="w-8 h-8" />
           </span>
-          <span className="relative mt-4 block text-lg font-bold text-slate-900 leading-snug">{titulo}</span>
+          <span className="relative min-w-0 pt-1">
+            <span className="block text-lg font-bold text-slate-900 leading-snug">{titulo}</span>
+            <span className="mt-1.5 block text-sm lg:text-[15px] text-slate-500 leading-relaxed">{gancho}</span>
+          </span>
 
-          {/* Pista de giro: "Tocá" en pantallas táctiles, "Click" con mouse */}
-          <span
-            aria-hidden="true"
-            className="relative mt-auto pt-5 self-start"
-          >
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-arbell-blue/20 bg-white px-3 py-1.5 text-xs font-semibold text-arbell-blue shadow-xs">
-              <LineIcon paths={[TURN_ICON_PATH]} strokeWidth={2} className="w-4 h-4 transition-transform duration-500 ease-soft group-hover/card:rotate-180" />
-              <span className="pointer-fine:hidden">{QUIENES_SOMOS.beneficiosPistaTactil}</span>
-              <span className="hidden pointer-fine:inline">{QUIENES_SOMOS.beneficiosPistaMouse}</span>
-            </span>
-          </span>
+          <TurnBadge className={colors.turn} />
         </span>
 
-        {/* Dorso */}
+        {/* Dorso: el botón de giro va abajo a la derecha, por eso el texto deja margen a la derecha */}
         <span
-          className="relative overflow-hidden [grid-area:1/1] flex flex-col rounded-3xl bg-linear-to-br from-arbell-dark to-arbell-blue p-6 text-white shadow-lg shadow-arbell-dark/20 flip-face [transform:rotateY(180deg)_translateZ(1px)]"
+          className={`relative overflow-hidden [grid-area:1/1] flex flex-col rounded-3xl bg-linear-to-br p-5 pb-16 lg:p-6 lg:pr-16 text-white shadow-lg flip-face [transform:rotateY(180deg)_translateZ(1px)] ${colors.back}`}
           style={FACE_STYLE}
         >
-          <Doodle type="sparkle" className="absolute top-4 right-4 w-8 h-8 text-white/30" />
-          <span aria-hidden="true" className="relative block pr-10 text-xs font-bold uppercase tracking-wider text-white/70">
+          <span aria-hidden="true" className="block text-xs font-bold uppercase tracking-wider text-white/70">
             {titulo}
           </span>
-          <span className="relative mt-3 block text-[15px] leading-relaxed">{texto}</span>
-          <span aria-hidden="true" className="relative mt-auto pt-5 self-start">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 text-xs font-semibold">
-              <LineIcon paths={[TURN_ICON_PATH]} strokeWidth={2} className="w-4 h-4" />
-              {QUIENES_SOMOS.beneficiosVolver}
-            </span>
-          </span>
+          <span className="mt-2 block text-[15px] leading-relaxed">{texto}</span>
+          <TurnBadge className="bg-white/20" />
         </span>
       </span>
     </button>
@@ -354,8 +377,8 @@ export default function AboutUs() {
       <Reveal as="h3" className="mt-10 lg:mt-16 text-lg lg:text-2xl font-bold text-slate-900 text-center">
         {QUIENES_SOMOS.beneficiosTitulo}
       </Reveal>
-      {/* Tarjetas que giran. auto-rows-fr: todas las filas miden lo que la tarjeta más alta */}
-      <ul ref={cardsRef} className="mt-5 lg:mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5 auto-rows-fr">
+      {/* Tarjetas que giran: 2x2 en desktop, una columna en mobile. auto-rows-fr: todas miden lo que la más alta */}
+      <ul ref={cardsRef} className="mt-5 lg:mt-8 grid gap-4 lg:grid-cols-2 lg:gap-5 lg:max-w-4xl lg:mx-auto auto-rows-fr">
         {beneficios.map((beneficio, index) => {
           const delay = 100 + index * STAGGER_MS
           return (
