@@ -50,6 +50,17 @@ export const QUIENES_SOMOS = {
   titulo: 'Conocé Bellissima: tu Distribuidora Oficial Arbell',
   bajada: 'Pasión por la belleza, el bienestar integral y el crecimiento personal.',
   imagenAlt: 'Noe y Mary, líderes de Distribuidora Bellissima',
+  // A la vista, al lado de la foto
+  resumen: 'Somos Mary y Noe. Acercamos los productos Arbell a cada hogar y acompañamos a quienes quieren emprender.',
+  datos: [
+    { emoji: '🏅', texto: 'Distribuidora Oficial Arbell' },
+    { emoji: '👭', texto: 'Lideradas por Mary y Noe' },
+    { emoji: '🤝', texto: 'Acompañamiento diario' },
+  ],
+  botonHistoria: 'Conocé nuestra historia',
+  botonHistoriaCerrar: 'Mostrar menos',
+  historiaTitulo: 'Nuestra historia',
+  // Se despliegan con el botón "Conocé nuestra historia"
   parrafos: [
     'En Bellissima creemos que el cuidado personal y el éxito profesional van de la mano. Como Distribuidora Oficial Arbell, nos dedicamos a acercar productos de belleza, salud y nutrición de máxima calidad a cada hogar, al mismo tiempo que abrimos puertas a personas que buscan transformar su realidad económica.',
     'Liderado por Mary y Noe, nuestro equipo combina experiencia, calidez y un acompañamiento constante para guiar a cada persona en su camino: ya sea eligiendo el mejor tratamiento para su bienestar o construyendo un negocio propio, rentable y sin límites.',

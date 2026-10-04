@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { SECTION_IDS, TEAM_IMAGE } from '../config.js'
 import { QUIENES_SOMOS } from '../content.js'
 import { useReveal } from '../hooks/useReveal.js'
@@ -102,6 +102,23 @@ function FlipCard({ emoji, titulo, texto, popDelay, visible, peek, onPeekEnd }) 
 export default function AboutUs() {
   const { porQue, beneficios, cta } = QUIENES_SOMOS
   const [cardsRef, cardsVisible] = useReveal({ threshold: 0.3 })
+  const [datosRef, datosVisible] = useReveal()
+  const [historiaOpen, setHistoriaOpen] = useState(false)
+  const historiaRef = useRef(null)
+
+  function toggleHistoria() {
+    const opening = !historiaOpen
+    setHistoriaOpen(opening)
+    // En mobile, al abrir, acercar el inicio del texto si quedó fuera de la pantalla
+    if (opening && window.matchMedia('(max-width: 63.999rem)').matches) {
+      requestAnimationFrame(() => {
+        const panel = historiaRef.current
+        if (!panel || panel.getBoundingClientRect().top < window.innerHeight * 0.6) return
+        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        panel.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' })
+      })
+    }
+  }
   // La primera tarjeta hace un giro de muestra una sola vez
   const [peekDone, setPeekDone] = useState(false)
 
@@ -124,16 +141,82 @@ export default function AboutUs() {
       <div className="mt-8 lg:mt-12 lg:grid lg:grid-cols-2 lg:gap-14 lg:items-center">
         {TEAM_IMAGE && <TeamPhoto />}
 
-        <Reveal delay={120} className="mt-8 lg:mt-0 space-y-4 text-sm lg:text-base text-slate-600 leading-relaxed">
-          {QUIENES_SOMOS.parrafos.map((parrafo) => (
-            <p key={parrafo}>{parrafo}</p>
-          ))}
+        <div className="mt-8 lg:mt-0">
+          <Reveal as="p" delay={120} className="text-lg lg:text-2xl font-semibold text-slate-800 leading-snug">
+            {QUIENES_SOMOS.resumen}
+          </Reveal>
 
-          <div className="pt-2">
-            <h3 className="text-lg lg:text-xl font-bold text-slate-900">{porQue.titulo}</h3>
-            <p className="mt-2">{porQue.texto}</p>
+          {/* Datos destacados: informativos, sin hover. 2+1 en mobile, en fila desde sm */}
+          <ul ref={datosRef} className="mt-5 lg:mt-7 grid grid-cols-2 sm:grid-cols-3 gap-2.5 lg:gap-3">
+            {QUIENES_SOMOS.datos.map(({ emoji, texto }, index) => (
+              <li
+                key={texto}
+                className={`reveal ${datosVisible ? 'is-visible' : ''} flex items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-3 py-2.5 shadow-xs ${
+                  index === QUIENES_SOMOS.datos.length - 1 ? 'col-span-2 sm:col-span-1' : ''
+                }`}
+                style={{ '--reveal-delay': `${200 + index * STAGGER_MS}ms` }}
+              >
+                <span aria-hidden="true" className="shrink-0 flex items-center justify-center w-9 h-9 rounded-full bg-arbell-light text-lg">
+                  {emoji}
+                </span>
+                <span className="text-xs lg:text-sm font-semibold text-slate-700 leading-snug">{texto}</span>
+              </li>
+            ))}
+          </ul>
+
+          <Reveal delay={480} className="mt-6 lg:mt-8">
+            <button
+              type="button"
+              aria-expanded={historiaOpen}
+              aria-controls="historia-bellissima"
+              onClick={toggleHistoria}
+              className="group inline-flex items-center gap-2 rounded-full border-2 border-arbell-blue/25 bg-white px-5 py-2.5 text-sm font-bold text-arbell-blue shadow-xs transition duration-200 hover:border-arbell-blue hover:bg-arbell-light/60 active:scale-95"
+            >
+              {historiaOpen ? QUIENES_SOMOS.botonHistoriaCerrar : QUIENES_SOMOS.botonHistoria}
+              <svg
+                className={`w-4 h-4 transition-transform duration-300 ease-soft ${historiaOpen ? 'rotate-180' : 'group-hover:translate-y-0.5'}`}
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+          </Reveal>
+        </div>
+      </div>
+
+      {/* Historia completa: se despliega con el botón (altura animada + fade, como el FAQ).
+          Cerrada queda inert, así su contenido no recibe foco. */}
+      <div
+        ref={historiaRef}
+        id="historia-bellissima"
+        role="region"
+        aria-label={QUIENES_SOMOS.historiaTitulo}
+        inert={!historiaOpen}
+        className={`grid scroll-mt-20 transition-[grid-template-rows] duration-500 ease-soft ${
+          historiaOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+        }`}
+      >
+        <div className="overflow-hidden">
+          <div
+            className={`mt-8 lg:mt-12 grid gap-6 lg:grid-cols-2 lg:gap-12 rounded-3xl border border-slate-200/80 bg-white p-6 lg:p-10 shadow-xs text-sm lg:text-base text-slate-600 leading-relaxed transition duration-500 ease-soft ${
+              historiaOpen ? 'opacity-100 translate-y-0 delay-100' : 'opacity-0 -translate-y-2'
+            }`}
+          >
+            <div className="space-y-4">
+              {QUIENES_SOMOS.parrafos.map((parrafo) => (
+                <p key={parrafo}>{parrafo}</p>
+              ))}
+            </div>
+            <div className="lg:border-l lg:border-slate-100 lg:pl-12">
+              <h3 className="text-lg lg:text-xl font-bold text-slate-900">{porQue.titulo}</h3>
+              <p className="mt-2">{porQue.texto}</p>
+            </div>
           </div>
-        </Reveal>
+        </div>
       </div>
 
       <Reveal as="h3" className="mt-10 lg:mt-16 text-lg lg:text-2xl font-bold text-slate-900 text-center">
