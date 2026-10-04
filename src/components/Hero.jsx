@@ -1,91 +1,122 @@
+import { useEffect, useRef } from 'react'
 import { HERO_IMAGE } from '../config.js'
+import { HERO } from '../content.js'
 
-const BULLETS = ['Importantes ganancias', 'Manejá tus tiempos']
+// Parallax de la foto: solo desktop y sin movimiento reducido
+const PARALLAX_QUERY = '(min-width: 64rem) and (prefers-reduced-motion: no-preference)'
+const PARALLAX_SPEED = 0.15
 
-// Muestra la foto de config (HERO_IMAGE) o, si todavía no hay, un fondo decorativo.
-function HeroVisual() {
-  return (
-    <div className="relative w-full h-36 md:h-48 lg:h-64 rounded-2xl overflow-hidden shadow-inner border border-white/20 mb-2 lg:mb-0">
-      {HERO_IMAGE ? (
-        <>
-          <img
-            alt="Emprendedora de Distribuidora Bellissima"
-            className="w-full h-full object-cover object-right"
-            src={HERO_IMAGE}
-          />
-          <div className="absolute inset-0 bg-linear-to-r from-arbell-blue/80 via-transparent to-transparent" />
-        </>
-      ) : (
-        <div aria-hidden="true" className="absolute inset-0 bg-linear-to-br from-arbell-accent/50 via-white/10 to-arbell-dark/50">
-          <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.22)_1px,transparent_1.5px)] bg-size-[18px_18px]" />
-          <div className="absolute -right-8 -bottom-10 w-40 h-40 lg:w-64 lg:h-64 rounded-full bg-white/15 blur-2xl" />
-          <svg
-            className="absolute right-5 top-1/2 -translate-y-1/2 w-20 h-20 lg:right-10 lg:w-32 lg:h-32 text-white/70"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </div>
-      )}
-    </div>
-  )
+function useParallax() {
+  const ref = useRef(null)
+
+  useEffect(() => {
+    const element = ref.current
+    if (!element) return
+    const media = window.matchMedia(PARALLAX_QUERY)
+    let frame = 0
+
+    function update() {
+      frame = 0
+      // Solo mientras el hero está a la vista
+      const offset = Math.min(window.scrollY, window.innerHeight) * PARALLAX_SPEED
+      element.style.transform = `translate3d(0, ${offset}px, 0)`
+    }
+    function handleScroll() {
+      if (!frame) frame = requestAnimationFrame(update)
+    }
+    function sync() {
+      if (media.matches) {
+        window.addEventListener('scroll', handleScroll, { passive: true })
+        update()
+      } else {
+        window.removeEventListener('scroll', handleScroll)
+        element.style.transform = ''
+      }
+    }
+
+    sync()
+    media.addEventListener('change', sync)
+    return () => {
+      media.removeEventListener('change', sync)
+      window.removeEventListener('scroll', handleScroll)
+      cancelAnimationFrame(frame)
+    }
+  }, [])
+
+  return ref
 }
 
-// children: la card del formulario. En mobile/tablet se superpone al borde inferior
-// del hero; desde lg queda dentro del hero, en la columna derecha.
-export default function Hero({ children }) {
+export default function Hero() {
+  const parallaxRef = useParallax()
+
   return (
-    <section className="relative overflow-x-clip text-white lg:py-16">
-      <div className="page-container lg:grid lg:grid-cols-2 lg:gap-12 lg:items-start">
-        <div className="relative pt-6 pb-24 lg:static lg:py-0">
-          {/* Fondo: a todo el ancho detrás de esta columna en mobile, de toda la sección desde lg */}
-          <div
-            aria-hidden="true"
-            className="absolute inset-y-0 left-1/2 w-screen -translate-x-1/2 lg:inset-0 lg:w-auto lg:translate-x-0 overflow-hidden bg-linear-to-b from-[#005a9e] via-arbell-blue to-[#0284c7] pointer-events-none"
-          >
-            <div className="absolute -right-16 -top-16 w-64 h-64 lg:w-96 lg:h-96 rounded-full bg-white/10 blur-2xl" />
-            <div className="absolute -left-12 top-48 w-48 h-48 lg:w-72 lg:h-72 rounded-full bg-sky-300/15 blur-xl" />
-          </div>
+    <section className="relative overflow-hidden bg-linear-to-b from-[#004b8d] via-[#0063ad] to-arbell-blue text-white">
+      <div aria-hidden="true" className="pointer-events-none">
+        <div className="absolute -right-16 -top-20 w-64 h-64 lg:w-96 lg:h-96 rounded-full bg-white/10 blur-2xl animate-float-slow will-change-transform" />
+        <div className="absolute -left-12 top-40 w-48 h-48 lg:w-72 lg:h-72 rounded-full bg-sky-300/15 blur-xl animate-float-slower will-change-transform" />
+      </div>
 
-          <div className="relative z-10">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-semibold tracking-wide text-white uppercase mb-3.5 lg:mb-5 border border-white/25">
-              <svg className="w-3.5 h-3.5 text-yellow-300" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-              <span>Venta Directa &amp; Cosmética Emprendedora</span>
-            </div>
-
-            <h1 className="text-3xl lg:text-5xl font-extrabold tracking-tight leading-tight text-white mb-2 lg:mb-4 animate-fade-up">
-              Convertí tu tiempo en ingresos.
-            </h1>
-            <p className="text-sm lg:text-lg font-normal text-sky-100 leading-relaxed max-w-sm lg:max-w-lg mb-4 lg:mb-6 animate-fade-up [animation-delay:120ms]">
-              Emprendé con Arbell de la mano de Distribuidora Bellissima y empezá a crecer con confianza.
-            </p>
-
-            <div className="flex items-center gap-4 lg:gap-6 text-xs lg:text-sm font-medium text-white/90 mb-5 lg:mb-8">
-              {BULLETS.map((text) => (
-                <span key={text} className="flex items-center gap-1.5">
-                  <svg className="w-4 h-4 lg:w-5 lg:h-5 text-emerald-300" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M4.5 12.75l6 6 9-13.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                  {text}
-                </span>
-              ))}
-            </div>
-
-            <HeroVisual />
+      {/* Foto del equipo: a la derecha del texto, fundida con el fondo por el borde izquierdo.
+          En mobile/tablet termina detrás de la card del formulario. En desktop se extiende
+          por arriba (lg:-top-24) para que el parallax no deje un hueco. */}
+      {HERO_IMAGE && (
+        <div
+          ref={parallaxRef}
+          className="absolute right-0 bottom-12 w-1/2 h-60 sm:h-72 md:w-[46%] md:h-80 lg:-top-24 lg:bottom-0 lg:h-auto lg:w-[min(50%,48rem)] will-change-transform"
+        >
+          <div className="w-full h-full [mask-image:linear-gradient(to_right,transparent,#000_18%)] lg:[mask-image:linear-gradient(to_right,transparent,#000_35%)] animate-photo-in [animation-delay:200ms]">
+            <img
+              src={HERO_IMAGE}
+              alt={HERO.imagenAlt}
+              className="w-full h-full object-cover object-[60%_20%]"
+            />
           </div>
         </div>
+      )}
 
-        <div className="relative z-20 -mt-20 lg:mt-0 text-slate-800 animate-fade-up [animation-delay:240ms]">{children}</div>
+      <div className="page-container relative z-10 pt-6 pb-24 md:pb-28 lg:pt-16 lg:pb-40">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-[11px] font-semibold tracking-wide uppercase mb-3.5 lg:mb-5 border border-white/25 animate-fade-up">
+          <svg className="w-3.5 h-3.5 text-yellow-300" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+          <span>{HERO.badge}</span>
+        </div>
+
+        <h1 className="text-[1.7rem] leading-tight sm:text-4xl lg:text-5xl lg:leading-tight font-extrabold tracking-tight mb-3 lg:mb-5 max-w-[19ch] lg:max-w-xl [text-shadow:0_2px_12px_rgb(0_40_90/0.35)] animate-fade-up [animation-delay:80ms]">
+          {HERO.titulo}
+        </h1>
+
+        <div className="max-w-[52%] md:max-w-[50%] lg:max-w-lg">
+          <p className="text-[13px] sm:text-sm lg:text-lg text-sky-100 leading-relaxed mb-4 lg:mb-7 animate-fade-up [animation-delay:160ms]">
+            {HERO.texto}
+          </p>
+
+          <ul className="flex flex-col gap-2.5 lg:flex-row lg:gap-8 text-xs sm:text-sm font-medium text-white/95 animate-fade-up [animation-delay:240ms]">
+            {HERO.items.map(({ emoji, texto }) => (
+              <li key={texto} className="flex items-center gap-2">
+                <span
+                  aria-hidden="true"
+                  className="shrink-0 flex items-center justify-center w-8 h-8 lg:w-10 lg:h-10 rounded-lg bg-white/15 border border-white/20 text-base lg:text-lg"
+                >
+                  {emoji}
+                </span>
+                {texto}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
+
+      {/* Onda inferior: transición al fondo claro de la página */}
+      <svg
+        aria-hidden="true"
+        className="absolute inset-x-0 -bottom-px w-full h-8 md:h-12 lg:h-16 text-slate-50"
+        viewBox="0 0 1440 120"
+        preserveAspectRatio="none"
+        fill="currentColor"
+      >
+        <path d="M0 70C180 110 360 120 600 92C840 64 1020 20 1200 26C1320 30 1390 48 1440 60V120H0Z" />
+      </svg>
     </section>
   )
 }

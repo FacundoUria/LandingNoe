@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Material de referencia de diseño (no se publica)
+referencias/

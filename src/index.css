@@ -11,13 +11,148 @@
 
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
-  /* Entrada del hero: se escalona con [animation-delay:...] */
-  --animate-fade-up: fade-up 500ms ease-out backwards;
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Entradas: se escalonan con [animation-delay:...] */
+  --animate-fade-up: fade-up 600ms var(--ease-soft) backwards;
+  --animate-photo-in: photo-in 1000ms var(--ease-soft) backwards;
+  /* Ícono de tarjeta al aparecer: 0.8 → 1.05 → 1 */
+  --animate-pop: pop 550ms var(--ease-soft) backwards;
+  /* Check verde de campo válido */
+  --animate-check-in: check-in 300ms var(--ease-spring) backwards;
+  /* Campo con error al intentar enviar */
+  --animate-shake: shake 400ms ease-in-out;
+  /* Círculos del fondo del hero */
+  --animate-float-slow: float-slow 18s ease-in-out infinite;
+  --animate-float-slower: float-slower 22s ease-in-out infinite;
+  /* Brillo que cruza el botón principal cada 4s */
+  --animate-shine: shine 4s ease-in-out infinite;
+  /* "Saludo" del botón de WhatsApp cada 8s */
+  --animate-wiggle: wiggle 8s ease-in-out infinite;
+  /* Cinta de beneficios: recorre la mitad del track (hay dos copias) en loop */
+  --animate-marquee: marquee 40s linear infinite;
+  /* Giro de muestra de la primera tarjeta de "Lo que encontrás con nosotras" */
+  --animate-flip-peek: flip-peek 2400ms var(--ease-soft) 900ms;
 
   @keyframes fade-up {
     from {
       opacity: 0;
-      transform: translateY(12px);
+      transform: translateY(16px);
+    }
+  }
+
+  @keyframes photo-in {
+    from {
+      opacity: 0;
+      transform: scale(1.08);
+    }
+  }
+
+  @keyframes pop {
+    0% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    60% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes check-in {
+    from {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+  }
+
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    20% {
+      transform: translateX(-6px);
+    }
+    40% {
+      transform: translateX(5px);
+    }
+    60% {
+      transform: translateX(-4px);
+    }
+    80% {
+      transform: translateX(2px);
+    }
+  }
+
+  @keyframes float-slow {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(-24px, 18px) scale(1.06);
+    }
+  }
+
+  @keyframes float-slower {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(28px, -20px) scale(0.95);
+    }
+  }
+
+  @keyframes shine {
+    0% {
+      transform: translateX(0) skewX(-20deg);
+    }
+    25%,
+    100% {
+      transform: translateX(450%) skewX(-20deg);
+    }
+  }
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes flip-peek {
+    0%,
+    100% {
+      transform: rotateY(0);
+    }
+    30%,
+    65% {
+      transform: rotateY(180deg);
+    }
+  }
+
+  @keyframes wiggle {
+    0%,
+    86%,
+    100% {
+      transform: rotate(0);
+    }
+    88% {
+      transform: rotate(-14deg);
+    }
+    91% {
+      transform: rotate(12deg);
+    }
+    94% {
+      transform: rotate(-8deg);
+    }
+    97% {
+      transform: rotate(4deg);
     }
   }
 }
@@ -35,6 +170,36 @@ body {
   :where(a, button):focus-visible {
     outline: 2px solid var(--color-arbell-blue);
     outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Reveal al entrar en pantalla (ver useReveal). Solo opacity/transform: no mueve el layout.
+     El retardo se pasa con la variable --reveal-delay. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 600ms var(--ease-soft),
+      transform 600ms var(--ease-soft);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Tarjetas que giran (FlipCard). Prefijos -webkit- para Safari/iOS: sin ellos se ven
+     las dos caras superpuestas. */
+  .flip-inner {
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+  }
+
+  .flip-face {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
 }
 
@@ -56,7 +221,13 @@ body {
     animation-delay: 0s !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
     scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -65,19 +236,24 @@ body {
   @apply mx-auto max-w-md px-4 md:max-w-2xl lg:max-w-6xl lg:px-8;
 }
 
-/* Subrayado que crece de izquierda a derecha al hacer hover (propio o del .group padre) */
+/* Subrayado que crece de izquierda a derecha al hacer hover (propio o del .group padre).
+   Con aria-current queda fijo: lo usa el link de la sección activa del header. */
 @utility link-underline {
   background-image: linear-gradient(currentColor, currentColor);
   background-repeat: no-repeat;
   background-position: 0 100%;
-  background-size: 0% 1px;
-  padding-bottom: 2px;
-  transition: background-size 200ms ease-out, color 200ms ease-out;
+  background-size: 0% 2px;
+  padding-bottom: 3px;
+  transition: background-size 250ms var(--ease-soft), color 200ms ease-out;
+
+  &[aria-current] {
+    background-size: 100% 2px;
+  }
 
   @media (hover: hover) {
     &:hover,
     .group:hover & {
-      background-size: 100% 1px;
+      background-size: 100% 2px;
     }
   }
 }

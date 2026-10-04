@@ -2,6 +2,9 @@
 
 export const STORE_URL = 'https://miarbell.com.ar/tienda-arbell/?id=192390'
 
+// Link al catálogo vigente. Mientras sea null, el link no aparece en el footer.
+export const CATALOGO_URL = null
+
 export const INSTAGRAM = {
   url: 'https://www.instagram.com/arbell.bellissima',
   handle: '@arbell.bellissima',
@@ -17,6 +20,16 @@ export const WHATSAPP = {
   defaultMessage: 'Hola, vengo desde la página web',
 }
 
+// IDs de las secciones, usados por las anclas del header y el footer
+export const SECTION_IDS = {
+  formulario: 'formulario',
+  quienesSomos: 'quienes-somos',
+  preguntasFrecuentes: 'preguntas-frecuentes',
+}
+
+// Mostrar u ocultar la sección "Líneas de Productos"
+export const SHOW_PRODUCTOS = false
+
 // Líneas de productos. Por cada una:
 // - imagen: ruta de una imagen en public/images/ (ej. '/images/facial.jpg'); con null se muestra el emoji
 // - descripcion: texto breve que aparece debajo del nombre; vacío no muestra nada
@@ -29,9 +42,12 @@ export const PRODUCT_LINES = [
   { nombre: 'Joyería & Bijou', emoji: '💍', imagen: null, descripcion: '' },
 ]
 
-// Foto del hero. Mientras sea null se muestra un fondo decorativo.
-// Cuando esté la foto real: guardala en public/images/ y poné acá su ruta, ej. '/images/hero.jpg'
-export const HERO_IMAGE = null
+// Foto del hero. Con null se muestra solo el fondo azul.
+// equipo-recorte.jpg es la parte de la foto de equipo.jpg sin el texto del flyer.
+export const HERO_IMAGE = '/images/equipo-recorte.jpg'
+
+// Foto de la sección "Quiénes somos"
+export const TEAM_IMAGE = '/images/equipo-recorte.jpg'
 
 export function whatsappUrl(message = WHATSAPP.defaultMessage) {
   return `https://wa.me/${WHATSAPP.number}?text=${encodeURIComponent(message)}`
