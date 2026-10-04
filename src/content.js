@@ -113,12 +113,13 @@ export const QUIENES_SOMOS = {
 export const PREGUNTAS_FRECUENTES = {
   etiqueta: 'Preguntas frecuentes',
   titulo: 'Todo lo que querés saber antes de empezar',
-  // Por pregunta: icono (bolsa, ganancia, billetera, etiqueta, birrete, celular, reloj o mensaje;
-  // dibujos en Faq.jsx), corta y rapida (lo que se ve en la tarjeta) y pregunta/respuesta completas
-  // (lo que se ve en el detalle). Si la respuesta completa empieza con "No" o "Para nada", se resalta.
+  bajada: 'Tocá una pregunta y te respondemos',
+  otraDuda: '¿Otra duda?',
+  otraDudaLink: 'Escribinos por WhatsApp',
+  // Por pregunta: corta (botón de respuesta rápida), rapida (respuesta corta en negrita) y
+  // pregunta/respuesta completas (texto del chat, lista "Ver todas" y datos para Google).
   preguntas: [
     {
-      icono: 'bolsa',
       corta: '¿Hay pedido mínimo?',
       rapida: 'Sin mínimo',
       pregunta: '¿Tengo que hacer un pedido mínimo para vender?',
@@ -126,7 +127,6 @@ export const PREGUNTAS_FRECUENTES = {
         'No, en Arbell no tenés ningún tipo de pedido mínimo obligatorio. Podés encargar desde un solo producto hasta la cantidad que tus clientes te pidan, vendiendo a tu propio ritmo y sin presiones.',
     },
     {
-      icono: 'ganancia',
       corta: '¿Cuánto gano?',
       rapida: '30% a 60%',
       pregunta: '¿Cuál es el porcentaje de ganancia?',
@@ -134,7 +134,6 @@ export const PREGUNTAS_FRECUENTES = {
         'Empezás como Experta con entre un 30% y un 60% de ganancia sobre tus ventas. Además, a medida que avanzás en la carrera comercial (como Líder de Grupo o Distribuidora), tus ganancias y beneficios aumentan.',
     },
     {
-      icono: 'billetera',
       corta: '¿Cuándo pago?',
       rapida: 'Al retirar',
       pregunta: '¿Cómo y cuándo se pagan los pedidos?',
@@ -142,7 +141,6 @@ export const PREGUNTAS_FRECUENTES = {
         'Los pedidos no se abonan por adelantado: se pagan directamente al momento de retirarlos por la distribuidora. De esta forma gestionás tus entregas de manera cómoda y segura.',
     },
     {
-      icono: 'etiqueta',
       corta: '¿Cuesta sumarme?',
       rapida: '$0',
       pregunta: '¿Tiene algún costo sumarme o inscribirme?',
@@ -150,7 +148,6 @@ export const PREGUNTAS_FRECUENTES = {
         'No, registrarte para recibir asesoramiento e iniciar tu emprendimiento es totalmente gratuito. Te acompañamos para que puedas empezar con inversión cero y sin riesgos.',
     },
     {
-      icono: 'birrete',
       corta: '¿Necesito experiencia?',
       rapida: 'No hace falta',
       pregunta: '¿Necesito tener experiencia previa en ventas?',
@@ -158,7 +155,6 @@ export const PREGUNTAS_FRECUENTES = {
         'Para nada. Te brindamos capacitación constante y el acompañamiento personalizado de nuestras líderes de equipo para que aprendas a tu ritmo y conozcas las mejores estrategias comerciales.',
     },
     {
-      icono: 'celular',
       corta: '¿Cómo muestro?',
       rapida: 'Catálogo digital gratis',
       pregunta: '¿Cómo muestro los productos a mis clientes?',
@@ -166,7 +162,6 @@ export const PREGUNTAS_FRECUENTES = {
         'Contás con el catálogo digital y la tienda virtual gratis para compartir fácil y rápido por WhatsApp y redes sociales, además del catálogo impreso para vender de manera presencial.',
     },
     {
-      icono: 'reloj',
       corta: '¿Tengo horarios?',
       rapida: 'Vos los elegís',
       pregunta: '¿Tengo horarios fijos o compromisos de tiempo?',
@@ -174,7 +169,6 @@ export const PREGUNTAS_FRECUENTES = {
         'No, contás con flexibilidad horaria total. Vos manejás tus propios tiempos desde el celular y decidís cuánto tiempo dedicarle a tu negocio.',
     },
     {
-      icono: 'mensaje',
       corta: '¿Y después?',
       rapida: 'Te escribimos',
       pregunta: '¿Qué pasa después de completar el formulario?',
@@ -182,18 +176,18 @@ export const PREGUNTAS_FRECUENTES = {
         'Una vez que dejes tus datos, una de nuestras líderes de Distribuidora Bellissima te va a contactar por teléfono o WhatsApp para darte la bienvenida, resolver tus dudas y explicarte cómo hacer tu primer encargo.',
     },
   ],
-  verDetalle: 'Ver detalle',
-  // Detalle (modal en desktop, panel desde abajo en mobile)
-  detalle: {
-    anterior: 'Anterior',
-    siguiente: 'Siguiente',
-    cerrar: 'Cerrar',
-    boton: 'Quiero sumarme',
+  chat: {
+    nombre: 'Mary y Noe',
+    estado: 'en línea',
+    saludo: '¡Hola! Somos Mary y Noe 👋 Tocá una pregunta y te respondemos al toque.',
+    escribiendo: 'Escribiendo…',
+    // Llega después de responder 3 preguntas
+    cierre: '¿Querés que te contactemos? Completá el formulario y te escribimos 😊',
+    cierreBoton: 'Ir al formulario',
+    preguntasLabel: 'Preguntas',
   },
-  contacto: {
-    titulo: '¿No encontrás tu respuesta?',
-    boton: 'Escribinos por WhatsApp',
-  },
+  verTodas: 'Ver todas las respuestas',
+  ocultarTodas: 'Ocultar las respuestas',
 }
 
 export const COMO_EMPEZAR = {

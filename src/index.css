@@ -34,6 +34,8 @@
   --animate-draw-oval: draw-oval 900ms var(--ease-soft) both;
   /* Barra de progreso del autoplay de "¿Por qué elegir Bellissima?" */
   --animate-progress: progress 6s linear forwards;
+  /* Puntos de "escribiendo…" del chat de Preguntas frecuentes (se escalonan con delay) */
+  --animate-typing: typing 1s ease-in-out infinite;
   /* Destellos: titilan muy lento después de dibujarse */
   --animate-twinkle: twinkle 5s ease-in-out infinite;
   /* "Saludo" del botón de WhatsApp cada 8s */
@@ -105,6 +107,19 @@
     }
     to {
       stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes typing {
+    0%,
+    60%,
+    100% {
+      opacity: 0.35;
+      transform: translateY(0);
+    }
+    30% {
+      opacity: 1;
+      transform: translateY(-3px);
     }
   }
 
