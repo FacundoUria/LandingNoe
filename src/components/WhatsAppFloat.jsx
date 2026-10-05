@@ -24,7 +24,7 @@ export default function WhatsAppFloat() {
       }`}
     >
       <a
-        aria-label="Contactar a una asesora por WhatsApp"
+        aria-label="Contactar a una Experta en Belleza por WhatsApp"
         className="group relative flex items-center justify-center w-14 h-14 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full shadow-lg hover:shadow-xl hover:shadow-emerald-500/30 hover:scale-105 active:scale-90 transition duration-200"
         href={whatsappUrl()}
         rel="noopener noreferrer"

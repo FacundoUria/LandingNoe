@@ -12,7 +12,7 @@ export const HERO = {
   // Lo que va entre **dobles asteriscos** lleva el subrayado dibujado a mano
   titulo: 'Multiplicá **tus ingresos** con Arbell Bellissima',
   texto:
-    'Convertite en Asesora Independiente de la mano del equipo líder de Distribuidora Bellissima. Capacitación, soporte y un negocio a tu medida.',
+    'Convertite en Experta en Belleza de la mano del equipo líder de Distribuidora Bellissima. Capacitación, soporte y un negocio a tu medida.',
   // Firma de la nota, en letra manuscrita
   firma: '— Mary y Noe ♡',
   // Dos datos debajo de la nota
