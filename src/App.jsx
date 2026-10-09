@@ -1,3 +1,4 @@
+import PromoBar from './components/PromoBar.jsx'
 import Header from './components/Header.jsx'
 import Hero from './components/Hero.jsx'
 import LeadForm from './components/LeadForm.jsx'
@@ -14,6 +15,7 @@ import { SHOW_PRODUCTOS } from './config.js'
 export default function App() {
   return (
     <div className="bg-white text-slate-800 font-sans min-h-screen antialiased selection:bg-arbell-blue selection:text-white">
+      <PromoBar />
       <Header />
       <main>
         <Hero />

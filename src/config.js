@@ -58,6 +58,17 @@ export const TEAM_FACES = [
   { src: '/images/equipo-noe.jpg', nombre: 'Noe' },
 ]
 
+// Aviso temporal en una franja arriba del header. Sin fecha de vencimiento: se muestra
+// mientras activa sea true; para sacarlo, poné activa: false.
+// texto: desktop/tablet; textoCorto: mobile (tiene que entrar en una línea junto al link).
+export const PROMO = {
+  activa: true,
+  texto: '💐 Especial Día de la Madre: mirá el catálogo',
+  textoCorto: '💐 Especial Día de la Madre',
+  linkTexto: 'Ver catálogo →',
+  url: 'https://catalogo.arbell.com.ar/especial-dia-de-la-madre/',
+}
+
 export function whatsappUrl(message = WHATSAPP.defaultMessage) {
   return `https://wa.me/${WHATSAPP.number}?text=${encodeURIComponent(message)}`
 }
