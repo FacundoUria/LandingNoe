@@ -90,6 +90,21 @@ export const EVENTO = {
   // El flyer original se usa solo como fondo desenfocado de la card
   fondo: '/images/evento-glow.webp',
   mensajeWhatsApp: '¡Hola! Quiero reservar mi lugar para Pausa & Glow del 28 de noviembre',
+  // Datos estructurados (schema.org Event) que se agregan al HTML en el build (vite.config.js)
+  datosEstructurados: {
+    fechaISO: '2026-11-28T17:00-03:00',
+    lugar: {
+      nombre: 'Espacio Clark',
+      direccion: 'J. y M. Clark 247',
+      ciudad: 'Ciudad de Mendoza',
+      provincia: 'Mendoza',
+      pais: 'AR',
+    },
+    precio: 45000,
+    moneda: 'ARS',
+    organizador: 'Distribuidora Bellissima',
+    imagen: '/images/evento-glow.jpg',
+  },
 }
 
 export function whatsappUrl(message = WHATSAPP.defaultMessage) {
