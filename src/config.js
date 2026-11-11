@@ -23,6 +23,7 @@ export const WHATSAPP = {
 // IDs de las secciones, usados por las anclas del header y el footer
 export const SECTION_IDS = {
   formulario: 'formulario',
+  evento: 'evento',
   quienesSomos: 'quienes-somos',
   preguntasFrecuentes: 'preguntas-frecuentes',
 }
@@ -62,11 +63,33 @@ export const TEAM_FACES = [
 // mientras activa sea true; para sacarlo, poné activa: false.
 // texto: desktop/tablet; textoCorto: mobile (tiene que entrar en una línea junto al link).
 export const PROMO = {
-  activa: true,
+  activa: false,
   texto: '💐 Especial Día de la Madre: mirá el catálogo',
   textoCorto: '💐 Especial Día de la Madre',
   linkTexto: 'Ver catálogo →',
   url: 'https://catalogo.arbell.com.ar/especial-dia-de-la-madre/',
+}
+
+// Sección "Evento" (el flyer recreado en HTML, debajo del formulario) y su link en el header.
+// Sin fecha de vencimiento: se muestra mientras activa sea true; para sacarla, poné activa: false.
+export const EVENTO = {
+  activa: true,
+  titulo: 'Pausa & Glow',
+  bajada: 'Un encuentro para calmar la mente y brillar',
+  fechaDia: '28',
+  fechaTexto: 'NOVIEMBRE - Desde las 17:00 h',
+  precio: 'VALOR PREVENTA • $45.000',
+  notaPrecio: 'Parte del valor de tu entrada se transforma en dinero ARBELL para canjear por productos',
+  regalo: '¡CON TU ENTRADA DE REGALO UNA FRAGANCIA PREMIUM!',
+  destacados: ['Automaquillaje', 'Snacks', 'Brindis', 'Sorteos'],
+  incluye:
+    'Incluye clase de yoga, snacks saludables, masterclass de automaquillaje y skincare, brindis final, regalos, sorteos, descuentos y mucho más por asistir',
+  organiza: 'Organiza:',
+  logo: '/images/logo.jpg',
+  lugar: 'ESPACIO CLARK • J.Y. M. Clark 247, Ciudad de Mza',
+  // El flyer original se usa solo como fondo desenfocado de la card
+  fondo: '/images/evento-glow.webp',
+  mensajeWhatsApp: '¡Hola! Quiero reservar mi lugar para Pausa & Glow del 28 de noviembre',
 }
 
 export function whatsappUrl(message = WHATSAPP.defaultMessage) {

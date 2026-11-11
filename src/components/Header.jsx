@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import { SECTION_IDS, STORE_URL } from '../config.js'
+import { EVENTO, SECTION_IDS, STORE_URL } from '../config.js'
 import { NAV } from '../content.js'
 
+// "Evento" solo mientras la sección está activa
 const SECTION_LINKS = [
+  ...(EVENTO.activa ? [{ id: SECTION_IDS.evento, label: NAV.evento }] : []),
   { id: SECTION_IDS.quienesSomos, label: NAV.quienesSomos },
   { id: SECTION_IDS.preguntasFrecuentes, label: NAV.preguntasFrecuentes },
 ]

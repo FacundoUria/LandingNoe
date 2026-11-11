@@ -1,6 +1,7 @@
 // Textos de la landing. Editá acá para cambiarlos sin tocar los componentes.
 
 export const NAV = {
+  evento: 'Evento',
   quienesSomos: 'Quiénes somos',
   preguntasFrecuentes: 'Preguntas frecuentes',
   tiendaCorto: 'Ver tienda',
